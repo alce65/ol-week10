@@ -84,7 +84,6 @@ package.json
         "coveragePathIgnorePatterns": [
             "<rootDir>/src/reportWebVitals.ts",
             "<rootDir>/src/index.ts",
-            "<rootDir>/src/tools/*"
         ]
     },
 ```
