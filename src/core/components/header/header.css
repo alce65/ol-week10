@@ -1,0 +1,12 @@
+header {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding-block: 1rem;
+    flex: 2 0 var(--header-height);
+    padding-inline: 1rem;
+}
+
+header h1 {
+    margin-block-start: 0;
+    margin-block-end: 1rem;
+}

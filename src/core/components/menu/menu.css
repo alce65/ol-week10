@@ -1,0 +1,17 @@
+.menu ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu ul,
+.menu li {
+    padding: 0;
+    margin: 0;
+}
+
+.menu a {
+    text-decoration: none;
+    color: inherit;
+    padding-inline-end: 1rem;
+    padding-block: 1rem;
+}
