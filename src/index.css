@@ -1,13 +1,78 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+    --primary-color: bisque;
+    --secondary-color: brown;
+    --light-gray: rgb(216, 216, 216);
+    --header-height: 10vh;
+    --footer-height: 3vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS',
+        sans-serif;
+}
+
+body,
+.root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    flex: 20 0 auto;
+    padding: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+form.add-task label {
+    display: block;
+    padding-block-end: 0.5rem;
+}
+
+form.add-task input {
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
+}
+
+ul.slot-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+li.item-task {
+    padding: 0;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid var(--light-gray);
+}
+.item-task__start,
+.item-task__end {
+    flex: 1 0 auto;
+}
+
+.item-task__end {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item-task__middle {
+    flex: 5 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+li.item-task .button {
+    cursor: pointer;
 }

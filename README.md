@@ -1,20 +1,26 @@
-# Frontend in React
+# Frontend in React: week 10
 
-## Installation
+## Día 1
+
+### Daily. Code Review.
+
+### Installation
+
+Librerías React. React-create-app (template TS). Webpack.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
 ```shell
-npx create-react-app <my-app> --template redux-typescript
+npx create-react-app <my-app> --template typescript
 npm i react-router-dom
 ```
 
 Incluye ESLint y Jest
 No se pueden sobre-instalar
 
-### EditorConfig / Prettier
+#### EditorConfig / Prettier
 
-#### Prettier
+##### Prettier
 
 packaje.json
 
@@ -24,7 +30,7 @@ packaje.json
     }
 ```
 
-#### .editorconfig
+##### .editorconfig
 
 ```
 root = true
@@ -44,7 +50,7 @@ trim_trailing_whitespace = false
 npx eclint check
 ```
 
-### ESLInt. Configuración extra: TS.
+#### ESLInt. Configuración extra: TS.
 
 ```shell
 npm i -D eslint-config-prettier
@@ -75,7 +81,7 @@ package.json
     },
 ```
 
-### Jest. Configuración extra
+#### Jest. Configuración extra
 
 package.json
 
@@ -88,9 +94,9 @@ package.json
     },
 ```
 
-### NPM Scripts adicionales
+#### NPM Scripts adicionales
 
-#### `npm start`
+##### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -98,12 +104,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-#### `npm test`
+##### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### `npm run build`
+##### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -113,7 +119,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### `npm run eject`
+##### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -123,7 +129,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### NPM Scripts adicionales
+#### NPM Scripts adicionales
 
 package.json
 
@@ -135,6 +141,22 @@ package.json
     },
 ```
 
+## Dia 2
+
+-   Scaffolding: src - public. Index.ts. Client side render
+-   Configuración TS… ESLint - Prettier. Ficheros tsx. CSS imports (Webpack)
+-   Scripts de npm: Start: render local. Build. CI/CD. Test.
+-   Componentes. JSX: template del componente. Expresiones JS {}. Fragments.
+
+React. Conceptos.
+
+-   modelo de datos
+-   Renderización y virtual DOM
+-   Estado e Inmutabilidad.
+-   Hooks: useState
+
+Header / Footer. Props
+
 ## Estructura del proyecto
 
 ### Features
@@ -143,14 +165,13 @@ package.json
     - About -> página sin contenido
     - Todo -> Demo del funcionamiento de React-redux con una TODO List
 
-### Infrastructure
+### Infrastructure / Core
 
     - Componentes
         - Layout, que consume Header, Footer y Menu
-        - App -> proporciona Provider de Auth0 y Layout al componente Routes
+        - App -> proporciona Layout al componente Routes
         - Routes -> Rutas publicas y privadas a las diferentes páginas usando Lazy Loading
         - PrivateRoute -> wrapper para crear las rutas privadas
-    - Store Redux
 
 ## TODO List
 
@@ -194,3 +215,12 @@ package.json
 #### Testing
 
 #### Developer Tools
+
+## Dia 3
+
+Conditional render: operaadores. Menu: renderizado iterativo. Key. Composición de componentes: children… Layout
+React Developer Tools. Props drilling. Páginas. Estructua de carpetas.
+Componente contador. Eventos… Paso de parámetros. Estado. Hook useState. Opciones en el setter
+El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial. Inmtabilidad.
+Multiples estados. Hook useEffect. Array de depencencias.
+Total clicks en la página. Estado en componente padre. Props funcionales
