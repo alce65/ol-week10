@@ -218,9 +218,16 @@ Header / Footer. Props
 
 ## Dia 3
 
-Conditional render: operaadores. Menu: renderizado iterativo. Key. Composición de componentes: children… Layout
-React Developer Tools. Props drilling. Páginas. Estructua de carpetas.
+Menu: renderizado iterativo. Key.
+Composición de componentes: children… Layout
+React Developer Tools.
+Props drilling. App (menuItems) -> Layout -> Menu
+Conditional render: operadores.
+
+Páginas. Estructua de carpetas.
+
 Componente contador. Eventos… Paso de parámetros. Estado. Hook useState. Opciones en el setter
+
 El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial. Inmtabilidad.
 Multiples estados. Hook useEffect. Array de depencencias.
 Total clicks en la página. Estado en componente padre. Props funcionales

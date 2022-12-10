@@ -1,13 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Sample } from '../sample/sample';
-import { Header } from '../header/header';
-import { Footer } from '../footer/footer';
-
+import { Layout } from '../layout/layout';
+import { MenuItems } from '../../types/menu.item';
+import { HomePage } from '../../../features/home/pages/home.page';
 export function App() {
+    const items: MenuItems = [
+        { path: '/home', label: 'Inicio' },
+        { path: '/products', label: 'Productos' },
+        { path: '/about', label: 'Nosotros' },
+    ];
     return (
-        <div className="App">
+        <>
             {/* <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <h1>React</h1>
@@ -23,9 +25,9 @@ export function App() {
                     Learn React
                 </a>
             </header> */}
-            <Header></Header>
-            <Sample></Sample>
-            <Footer></Footer>
-        </div>
+            <Layout items={items}>
+                <HomePage></HomePage>
+            </Layout>
+        </>
     );
 }

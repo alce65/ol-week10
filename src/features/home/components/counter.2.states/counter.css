@@ -1,0 +1,9 @@
+.counter {
+    border: 2px solid lightgray;
+    padding: 1rem;
+    width: 20rem;
+}
+
+.counter p {
+    font-size: 3rem;
+}

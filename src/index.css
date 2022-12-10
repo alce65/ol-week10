@@ -14,13 +14,17 @@ html {
 body,
 .root {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 main {

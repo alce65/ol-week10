@@ -1,7 +1,7 @@
+import { MenuItems } from '../../types/menu.item';
 import './menu.css';
 
-export type MenuItem = { path: string; label: string };
-export function Menu({ items }: { items: Array<MenuItem> }) {
+export function Menu({ items }: { items: MenuItems }) {
     return (
         <nav className="menu">
             <ul>
@@ -14,9 +14,3 @@ export function Menu({ items }: { items: Array<MenuItem> }) {
         </nav>
     );
 }
-
-function showName(name: string) {
-    console.log(name);
-}
-
-showName('Pepe');

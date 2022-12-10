@@ -1,19 +1,12 @@
-import { Menu, MenuItem } from '../menu/menu';
 import './header.css';
 
-export function Header() {
+export function Header({ children }: { children: JSX.Element }) {
     const title = 'Learning Components';
-
-    const items: Array<MenuItem> = [
-        { path: '/home', label: 'Inicio' },
-        { path: '/products', label: 'Productos' },
-        { path: '/about', label: 'Nosotros' },
-    ];
 
     return (
         <header>
             <h1>{title}</h1>
-            <Menu items={items}></Menu>
+            {children}
         </header>
     );
 }
