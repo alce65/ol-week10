@@ -25,7 +25,8 @@ export function Counter({ setTotal }: { setTotal: () => void }) {
     // const setCount = stateArray[1]; // setter del state
 
     const handlerClick = (increment: number) => {
-        //count = count + value;
+        //No podemos modificar directamente un estado
+        // count = count + value  -> daría un error por ser una constante
         setCount({
             ...count,
             value: count.value + increment,

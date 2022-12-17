@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 import './counter.css';
 export function Counter2({ setTotal }: { setTotal: () => void }) {
-    // Esta sería la variable al margen del state:
-    // let count = 0
-
-    // La misma variable como state
-    // const [count, setCount] = useState(0);
-
-    // Un estado más complejo -> objeto
-
     const [count, setCount] = useState(0);
     const [clicks, setClicks] = useState(0);
 
@@ -16,13 +8,7 @@ export function Counter2({ setTotal }: { setTotal: () => void }) {
         console.log(count);
     }, [count]);
 
-    // Sin destructuring
-    // const stateArray = useState(0);
-    // const count = stateArray[0]; // getter del state
-    // const setCount = stateArray[1]; // setter del state
-
     const handlerClick = (increment: number) => {
-        //count = count + value;
         setCount(count + increment);
         setClicks(clicks + 1);
         setTotal();
