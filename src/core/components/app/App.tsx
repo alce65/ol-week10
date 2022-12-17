@@ -1,11 +1,11 @@
 import './App.css';
 import { Layout } from '../layout/layout';
 import { MenuItems } from '../../types/menu.item';
-import { HomePage } from '../../../features/home/pages/home.page';
+import { AppRoutes } from '../routes/app.routes';
 export function App() {
     const items: MenuItems = [
         { path: '/home', label: 'Inicio' },
-        { path: '/products', label: 'Productos' },
+        { path: '/todo', label: 'Tareas' },
         { path: '/about', label: 'Nosotros' },
     ];
     return (
@@ -26,7 +26,7 @@ export function App() {
                 </a>
             </header> */}
             <Layout items={items}>
-                <HomePage></HomePage>
+                <AppRoutes items={items}></AppRoutes>
             </Layout>
         </>
     );
