@@ -2,6 +2,13 @@
     "name": "week10",
     "version": "0.1.0",
     "private": true,
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --watchAll --collect-coverage",
+        "test:prod": "react-scripts test --watchAll --collect-coverage --watchAll=false",
+        "eject": "react-scripts eject"
+    },
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
@@ -21,12 +28,6 @@
         "@typescript-eslint/eslint-plugin": "^5.46.0",
         "@typescript-eslint/parser": "^5.46.0",
         "eslint-config-prettier": "^8.5.0"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
     },
     "eslintConfig": {
         "extends": [
