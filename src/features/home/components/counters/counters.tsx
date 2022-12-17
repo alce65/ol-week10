@@ -5,7 +5,7 @@ import { Counter } from '../counter/counter';
 export function Counters() {
     const [totalClicks, setTotalClicks] = useState(0);
 
-    const addToTotal = () => {
+    const addToTotal = function () {
         setTotalClicks(totalClicks + 1);
     };
 
