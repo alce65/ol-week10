@@ -170,23 +170,101 @@ Header / Footer. Props
     - Componentes
         - Layout, que consume Header, Footer y Menu
         - App -> proporciona Layout al componente Routes
-        - Routes -> Rutas publicas y privadas a las diferentes páginas usando Lazy Loading
-        - PrivateRoute -> wrapper para crear las rutas privadas
+
+#### Developer Tools
+
+## Dia 3
+
+Menu: renderizado iterativo. Key.
+Composición de componentes: children… Layout
+React Developer Tools.
+Props drilling. App (menuItems) -> Layout -> Menu
+Conditional render: operadores.
+
+Páginas. Estructura de carpetas.
+
+Componente contador. Eventos… Paso de parámetros. Estado. Hook useState. Opciones en el setter
+
+El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial. Inmutabilidad.
+Multiples estados. Hook useEffect. Array de dependencias.
+Total clicks en la página. Estado en componente padre. Props funcionales
+
+# Frontend in React: week 11
+
+## Día 1
+
+### Daily. Code Review.
+
+Se continua le proyecto anterior: ToDoList.
+Repaso - Layout del proyecto anterior. - Relaciones entre componentes. Uso de props… - Pages (default export)
+
+### Enrutamiento
+
+Routing… Install react-router-dom
+Router: BrowserRouter v. MemoryRouter.
+Routes.
+
+-   Definición de cada Route.
+-   Route default.
+-   Prueba de las urls. Links desde el menu
+
+    -   Componentes (Infrastructure / Core)
+        -   Routes -> Rutas publicas y privadas a las diferentes páginas usando Lazy Loading
+        -   PrivateRoute -> wrapper para crear las rutas privadas
+
+Pendiente: Lazy Loading. React suspense.
+
+## Dia 2
 
 ## TODO List
+
+ToDoList: Componentes (Add, List, Task) para el CRUD.
+Continuando ToDo List.
+
+Patrón controlador / presentadores.
+
+-   Inicialmente datos y métodos pasados por props
+    -   Metodos por props en el formulario. Review conceptos de React. Funciones puras
+-   Componente Add: formularios en React.
+    -   Estado local del formulario (siempre useState).
+    -   Validación nativa
 
 ### Data
 
 -   Data Model
--   Server (Json-server): EndPoint http://localhost:3500/tasks (from .env)
--   Data Repository
+
+-   Origen de los datos
+    -   Mock síncrono (constante / servicio). Mock de datos desde un array.
+    -   Servicio de datos asíncrono.
+    -   Server (JSON Server): EndPoint http://localhost:3500/tasks (from .env)
 
 #### Data Repository
 
--   Abstract repository interface -> use of TS generict
+-   Data Repository
+    Servicio de fetch de los datos (Similar al usado en componente vanila, sin clases)
+
+-   Abstract repository interface -> use of TS generic
 -   TaskRepository -> class implementing the interface
 
+#### Componentes
+
+useEffect para llamar al servicio y gestionar estado. Conditional render de un loader
+Uso del servicio en las funciones del componente: enfoque optimista / no-optimista. Sincronicación con el back
+
+#### Challenge: Formulario
+
+## Dia 3
+
+### Daily. Code Review.
+
 ##### Testing
+
+Testing de componentes con react/testing-library. Conceptos (Kent C. Dodds); render y screen. Matchers
+Paso de props en los tests. Test del chiid content. MemoryRouter.
+Componentes dinámicos: mock "handle" functions. Eventos: userEvent. Opciones de jest runner. Coverage
+Robots CRUD: Front completo React básico + API en JSON Server + Testing
+
+---
 
 ### Uso de redux - TODO List
 
@@ -212,22 +290,4 @@ Header / Footer. Props
         -   como servicio externo
         -   como thunk
 
-#### Testing
-
-#### Developer Tools
-
-## Dia 3
-
-Menu: renderizado iterativo. Key.
-Composición de componentes: children… Layout
-React Developer Tools.
-Props drilling. App (menuItems) -> Layout -> Menu
-Conditional render: operadores.
-
-Páginas. Estructua de carpetas.
-
-Componente contador. Eventos… Paso de parámetros. Estado. Hook useState. Opciones en el setter
-
-El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial. Inmtabilidad.
-Multiples estados. Hook useEffect. Array de depencencias.
-Total clicks en la página. Estado en componente padre. Props funcionales
+#### Testing Redux
