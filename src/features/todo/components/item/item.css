@@ -1,0 +1,27 @@
+.item-task {
+    padding: 0;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid var(--light-gray);
+}
+.item-task__start,
+.item-task__end {
+    flex: 1 0 auto;
+}
+
+.item-task__end {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item-task__middle {
+    flex: 5 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-task .button {
+    cursor: pointer;
+}
