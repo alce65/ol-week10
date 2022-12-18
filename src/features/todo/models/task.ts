@@ -1,5 +1,3 @@
-// const crypto = window.crypto || import('crypto');
-
 // Se puede usar type, interface o class
 
 export type TaskType = {

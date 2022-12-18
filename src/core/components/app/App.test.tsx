@@ -3,7 +3,6 @@ import { MemoryRouter as Router } from 'react-router';
 import { App } from './App';
 
 describe('Given App component', () => {
-    //beforeEach(() => {});
     test('renders the title', () => {
         render(
             <Router>

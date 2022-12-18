@@ -16,11 +16,11 @@ export function List() {
         console.log('LOAD');
     };
 
-    const handleAdd = (task: TaskType) => {
+    const handleAdd = function (task: TaskType) {
         setTasks([...tasks, task]);
     };
 
-    const handleUpdate = (task: Partial<TaskType>) => {
+    const handleUpdate = function (task: Partial<TaskType>) {
         setTasks(
             tasks.map((item) =>
                 item.id === task.id ? { ...item, ...task } : item
@@ -28,7 +28,7 @@ export function List() {
         );
     };
 
-    const handleDelete = (id: TaskType['id']) => {
+    const handleDelete = function (id: TaskType['id']) {
         setTasks(tasks.filter((item) => item.id !== id));
     };
 
