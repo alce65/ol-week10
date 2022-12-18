@@ -11,34 +11,32 @@ describe('Given "Add" component', () => {
         render(<Add handleAdd={handleAdd}></Add>);
     });
 
-    const elements = [
-        screen.getByRole('heading', { name: 'Añadir tarea' }), // <h1>
-        ...screen.getAllByRole('textbox'), // <input>
-        screen.getByRole('button'),
-    ];
-    test('Then we should to be able to instantiate it', () => {
-        expect(Add).toBeInstanceOf(Add);
+    describe('When it is call with a DOM implementation', () => {
+        test(`Then component should be render with its title`, () => {
+            const elementHeader = screen.getByRole('heading', {
+                name: 'Añadir tarea',
+            }); // <h1>
+            // Sería redundante comprobar que es un elemento
+            // expect(element).toBeInstanceOf(HTMLElement);
+            expect(elementHeader).toBeInTheDocument();
+        });
     });
-    describe.each(elements)(
-        'When it is call with a DOM implementation',
-        (element: HTMLElement) => {
-            test(`Then ${element.tagName} should be render`, () => {
-                // expect(element).toBeInstanceOf(HTMLElement);
-                expect(element).toBeInTheDocument();
-            });
-        }
-    );
 
     describe('When data are provided in the form', () => {
-        const mockTitle = 'Test task';
-        const mockUser = 'Test user';
-        test('Then data form could bee used ', async () => {
-            // const user = userEvent.setup();
-            await userEvent.type(elements[1], mockTitle);
-            await userEvent.type(elements[2], mockUser);
-            expect(elements[1]).toHaveValue(mockTitle);
-            expect(elements[2]).toHaveValue(mockUser);
-            await userEvent.click(elements[3]);
+        test('Then form could be used for type content', () => {
+            const mockTitle = 'Test task';
+            const mockUser = 'Test user';
+            const inputElements = screen.getAllByRole('textbox'); // <input>
+            expect(inputElements[0]).toBeInTheDocument();
+            expect(inputElements[1]).toBeInTheDocument();
+            userEvent.type(inputElements[0], mockTitle);
+            userEvent.type(inputElements[1], mockUser);
+            expect(inputElements[0]).toHaveValue(mockTitle);
+            expect(inputElements[1]).toHaveValue(mockUser);
+        });
+        test('Then form could be used for send the function received in props', () => {
+            const elementButton = screen.getByRole('button');
+            userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });
     });
