@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AboutPage from '../../../features/about/pages/about.page';
-import { HomePage } from '../../../features/home/pages/home.page';
+import HomePage from '../../../features/home/pages/home.page';
 import TodoPage from '../../../features/todo/pages/todo.page';
 import { MenuItems } from '../../types/menu.item';
 

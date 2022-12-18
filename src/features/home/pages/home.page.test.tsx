@@ -1,20 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter as Router } from 'react-router';
-import { App } from './App';
+import HomePage from './home.page';
 
-describe('Given App component', () => {
+describe('Given HomePage component', () => {
     describe('When it has been render', () => {
-        test('Then its child components should be render also with its title', () => {
-            render(
-                <Router>
-                    <App />
-                </Router>
-            );
+        test('Then the title should be in the screen', () => {
+            const title = /Home/i;
+            render(<HomePage />);
             // Seleccionando por texto
             // const element = screen.getAllByText(/Learning Components/i);
             // La mejor práctica sería hacerlo por rol
             const elementHeader = screen.getByRole('heading', {
-                name: 'Learning Components',
+                name: title,
             });
             expect(elementHeader).toBeInTheDocument();
         });
