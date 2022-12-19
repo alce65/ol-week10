@@ -1,22 +1,44 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Counter } from './counter';
 
-describe('Given Counter component', () => {
-    test('renders the title', () => {
-        const setTotalMock = jest.fn();
-        render(<Counter setTotal={setTotalMock} />);
-        const title = screen.getByText(/counter/i);
-        expect(title).toBeInTheDocument();
-        const value = screen.getByText(/value: 0/i);
-        expect(value).toBeInTheDocument();
-    });
+export const titleDisplayTest = () => {
+    const title = screen.getByText(/counter/i);
+    expect(title).toBeInTheDocument();
+    const value = screen.getByText(/value: 0/i);
+    expect(value).toBeInTheDocument();
+};
 
-    test('When button + is clicked then should ...', () => {
+export const buttonIncreaseTest = (button: HTMLElement) => {
+    fireEvent.click(button);
+    const value = screen.getByText(/value: 1/i);
+    const clicks = screen.getByText(/clicks: 1/i);
+    expect(value).toBeInTheDocument();
+    expect(clicks).toBeInTheDocument();
+};
+
+export const buttonDecreaseTest = (button: HTMLElement) => {
+    fireEvent.click(button);
+    const value = screen.getByText(/value: -1/i);
+    const clicks = screen.getByText(/clicks: 1/i);
+    expect(value).toBeInTheDocument();
+    expect(clicks).toBeInTheDocument();
+};
+
+describe('Given Counter component', () => {
+    describe('When it is render in the screen', () => {
         const setTotalMock = jest.fn();
-        render(<Counter setTotal={setTotalMock} />);
-        const buttons = screen.getAllByRole('button');
-        fireEvent.click(buttons[1]);
-        const value = screen.getByText(/value: 1/i);
-        expect(value).toBeInTheDocument();
+        let buttons: Array<HTMLElement>;
+        beforeEach(() => {
+            render(<Counter setTotal={setTotalMock} />);
+            buttons = screen.getAllByRole('button');
+        });
+
+        test('Then the title should be displayed', titleDisplayTest);
+        test('Then if button + is clicked the new value should be in the screen', () => {
+            buttonIncreaseTest(buttons[1]);
+        });
+        test('Then if button - is clicked the new value should be in the screen', () => {
+            buttonDecreaseTest(buttons[0]);
+        });
     });
 });

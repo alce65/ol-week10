@@ -1,0 +1,11 @@
+form.add-task label {
+    display: block;
+    padding-block-end: 0.5rem;
+}
+
+form.add-task input {
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
+}

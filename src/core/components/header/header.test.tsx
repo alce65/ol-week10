@@ -1,13 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router';
-import { App } from './App';
+import { Header } from './header';
 
-describe('Given App component', () => {
+describe('Given Header component', () => {
     describe('When it has been render', () => {
-        test('Then its child components should be render also with its title', () => {
+        test('Then the title should be in the screen', () => {
             render(
                 <Router>
-                    <App />
+                    <Header>
+                        <></>
+                    </Header>
                 </Router>
             );
             // Seleccionando por texto

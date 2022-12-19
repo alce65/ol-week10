@@ -11,6 +11,7 @@ export function Sample({ children }: { children: JSX.Element }) {
     return (
         <div className={cssClass}>
             <h1>{title}</h1>
+            {/* @TODO Re-design for allow testing */}
             {hour < 10 && children}
         </div>
     );
