@@ -1,12 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-// import { Task } from '../../models/task';
 import { Item } from './item';
 import { Task } from '../../models/task';
 
 describe('Given "Item" component', () => {
-    // document.body.innerHTML = `<slot></slot>`;
     const updateTask = jest.fn();
     const deleteTask = jest.fn();
     const mockTitle = 'Test task';
