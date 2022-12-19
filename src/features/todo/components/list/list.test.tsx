@@ -15,6 +15,8 @@ jest.mock('../../data/mock.service');
 const mockTask = new Task('Test task', 'user');
 mockTask.id = '000001';
 const mockTasks = [mockTask];
+const mockAddTask = new Task('Added task', 'user');
+mockAddTask.id = '000002';
 
 describe('Given "List" component', () => {
     beforeEach(() => {
@@ -83,8 +85,6 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method handleAdd() are called', () => {
-        const mockAddTask = new Task('Added task', 'user');
-        mockAddTask.id = '000002';
         beforeEach(() => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
             (Add as jest.Mock).mockImplementation(({ handleAdd }) => {
@@ -116,7 +116,7 @@ describe('Given "List" component', () => {
         beforeEach(() => {
             const mockUpdatedTask = new Task('Updated task', 'user');
             mockUpdatedTask.id = '000001';
-            (getTasks as jest.Mock).mockResolvedValue(mockTasks);
+            (getTasks as jest.Mock).mockResolvedValue([mockTask, mockAddTask]);
             (Item as jest.Mock).mockImplementation(({ item, handleUpdate }) => {
                 return (
                     <>
@@ -141,10 +141,10 @@ describe('Given "List" component', () => {
         test(`Then the tasks array should be rendered 
                 with the updated item`, async () => {
             const title = /Updated task/i;
-            const button = await screen.findByRole('button', {
+            const buttons = await screen.findAllByRole('button', {
                 name: 'Update',
             });
-            userEvent.click(button);
+            userEvent.click(buttons[0]);
             expect(saveTasks).toHaveBeenCalled();
             const updateItem = await screen.findByText(title);
             expect(updateItem).toBeInTheDocument();

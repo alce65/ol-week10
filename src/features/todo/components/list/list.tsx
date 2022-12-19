@@ -23,7 +23,6 @@ export function List() {
     const handleUpdate = function (task: Partial<TaskType>) {
         setTasks(
             tasks.map((item) =>
-                // @TODO Re-design for allow testing
                 item.id === task.id ? { ...item, ...task } : item
             )
         );
