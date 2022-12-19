@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Counter } from './counter';
+import { Counter2 } from './counter';
 
-describe('Given Counter component', () => {
+describe('Given Counter2 component', () => {
     describe('When it is render in the screen', () => {
         const setTotalMock = jest.fn();
         let buttons: Array<HTMLElement>;
         beforeEach(() => {
-            render(<Counter setTotal={setTotalMock} />);
+            render(<Counter2 setTotal={setTotalMock} />);
             buttons = screen.getAllByRole('button');
         });
 
