@@ -37,6 +37,7 @@ export function List() {
     }, []);
 
     useEffect(() => {
+        console.log('useEffect', { tasks });
         if (tasks.length) {
             saveTasks(tasks);
         }
@@ -50,15 +51,18 @@ export function List() {
                 <p>Loading ....</p>
             ) : (
                 <ul className="task-list">
-                    {tasks.map((item) => (
-                        <li key={item.id}>
-                            <Item
-                                item={item}
-                                handleUpdate={handleUpdate}
-                                handleDelete={handleDelete}
-                            ></Item>
-                        </li>
-                    ))}
+                    {tasks.map((item) => {
+                        console.log({ item });
+                        return (
+                            <li key={item.id}>
+                                <Item
+                                    item={item}
+                                    handleUpdate={handleUpdate}
+                                    handleDelete={handleDelete}
+                                ></Item>
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
         </>

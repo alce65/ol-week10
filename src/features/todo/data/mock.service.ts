@@ -1,7 +1,7 @@
 import { Task, TaskType } from '../models/task';
 import { TASKS } from './mock.tasks';
 
-export const getTasks = () => {
+export const getTasks = (): Promise<Array<TaskType>> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             const data = localStorage.getItem('Tasks');
