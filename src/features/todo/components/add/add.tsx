@@ -21,6 +21,7 @@ export function Add({ handleAdd }: { handleAdd: (task: TaskType) => void }) {
         handleAdd(
             new Task(
                 formData.title as string,
+                // @TODO Re-design for allow testing
                 formData.responsible ? formData.responsible : ''
             )
         );

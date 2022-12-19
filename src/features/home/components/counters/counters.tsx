@@ -6,6 +6,7 @@ export function Counters() {
     const [totalClicks, setTotalClicks] = useState(0);
 
     const addToTotal = function () {
+        // @TODO Re-design for allow testing
         setTotalClicks(totalClicks + 1);
     };
 

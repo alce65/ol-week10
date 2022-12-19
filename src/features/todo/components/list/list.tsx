@@ -11,7 +11,7 @@ export function List() {
     const [tasks, setTasks] = useState(initialState);
 
     const handleLoad = async () => {
-        const data = (await getTasks()) as Array<TaskType>;
+        const data = await getTasks();
         setTasks(data);
         console.log('LOAD');
     };
@@ -23,6 +23,7 @@ export function List() {
     const handleUpdate = function (task: Partial<TaskType>) {
         setTasks(
             tasks.map((item) =>
+                // @TODO Re-design for allow testing
                 item.id === task.id ? { ...item, ...task } : item
             )
         );

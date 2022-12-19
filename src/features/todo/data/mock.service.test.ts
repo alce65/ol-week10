@@ -1,4 +1,4 @@
-import { Task, TaskType } from '../models/task';
+import { Task } from '../models/task';
 import { getTasks, saveTasks } from './mock.service';
 import { TASKS } from './mock.tasks';
 

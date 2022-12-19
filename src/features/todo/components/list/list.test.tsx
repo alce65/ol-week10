@@ -105,7 +105,7 @@ describe('Given "List" component', () => {
         });
         test('Then the tasks array should render with a new item', async () => {
             const button = screen.getByRole('button');
-            await userEvent.click(button);
+            userEvent.click(button);
             const addItem = await screen.findByText(/Added task/i);
             expect(addItem).toBeInTheDocument();
             expect(saveTasks).toHaveBeenCalled();
@@ -152,9 +152,6 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method deleteTask()  are called', () => {
-        // const mockAddTask = new Task('Added task', 'user');
-        //     let list: List;
-        //     let initialTasks;
         beforeEach(() => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
             (Item as jest.Mock).mockImplementation(
