@@ -1,10 +1,11 @@
+import { getHour } from '../../services/time';
 import './sample.css';
 export function Sample({ children }: { children: JSX.Element }) {
     // Controller del componente
 
     const title = 'Titulo Sample';
     const cssClass = 'sample';
-    const hour = new Date().getHours();
+    const hour = getHour();
 
     // Template string `${title}`
     // Vista del componente en JSX
