@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-// adds special assertions like toHaveTextContent
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { Add } from './add';
 

@@ -1,13 +1,11 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { List } from './list';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
 import { getTasks, saveTasks } from '../../data/mock.service';
 import { Task } from '../../models/task';
-import { act } from 'react-dom/test-utils';
 
 jest.mock('../add/add');
 jest.mock('../item/item');
