@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Sample } from './sample';
 import { getHour } from '../../services/time/time';
 
-jest.mock('../../services/time');
+jest.mock('../../services/time/time');
 
 describe('Given Sample component', () => {
     describe('When it has been render', () => {

@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 import { getStorage, setStorage } from "./storage";
 
 type TestItem = {name: string}
