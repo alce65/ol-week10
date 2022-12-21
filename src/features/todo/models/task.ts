@@ -1,13 +1,13 @@
 // Se puede usar type, interface o class
 
-export type TaskType = {
+export type TaskStructure = {
     id: string;
     title: string;
     responsible: string;
     isCompleted: boolean;
 };
 
-export class Task implements TaskType {
+export class Task implements TaskStructure {
     static generateId() {
         const aNumbers = new Uint32Array(1);
         window.crypto?.getRandomValues(aNumbers);

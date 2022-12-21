@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { consoleDebug } from '../../../../tools/debug';
 import { getTasks, saveTasks } from '../../data/mock.service';
-import { TaskType } from '../../models/task';
+import { TaskStructure } from '../../models/task';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
 import './list.css';
 
 export function List() {
-    const initialState: Array<TaskType> = [];
+    const initialState: Array<TaskStructure> = [];
 
     const [tasks, setTasks] = useState(initialState);
 
@@ -17,11 +17,11 @@ export function List() {
         consoleDebug('LOAD');
     };
 
-    const handleAdd = function (task: TaskType) {
+    const handleAdd = function (task: TaskStructure) {
         setTasks([...tasks, task]);
     };
 
-    const handleUpdate = function (task: Partial<TaskType>) {
+    const handleUpdate = function (task: Partial<TaskStructure>) {
         setTasks(
             tasks.map((item) =>
                 item.id === task.id ? { ...item, ...task } : item
@@ -29,7 +29,7 @@ export function List() {
         );
     };
 
-    const handleDelete = function (id: TaskType['id']) {
+    const handleDelete = function (id: TaskStructure['id']) {
         setTasks(tasks.filter((item) => item.id !== id));
     };
 
