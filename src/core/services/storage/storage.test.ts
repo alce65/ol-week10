@@ -1,4 +1,4 @@
-import { getStorage, setStorage } from "./storage";
+import { getStorageList, setStorageList } from "./storage";
 
 type TestItem = {name: string}
 const testItem = {name: 'Test'} 
@@ -11,7 +11,7 @@ describe('Given storage functions', () => {
                 .mockReturnValue(JSON.stringify([testItem]));
         })
         test('Web API function should be call', () => {
-            const result = getStorage<TestItem>('test')
+            const result = getStorageList<TestItem>('test')
             expect(result).toEqual([testItem])
             expect(Storage.prototype.getItem).toHaveBeenCalledWith('test')
         })
@@ -21,7 +21,7 @@ describe('Given storage functions', () => {
             Storage.prototype.setItem = jest.fn()
         })
         test('Web API function should be call', () => {
-            setStorage<TestItem>('test', [testItem])
+            setStorageList<TestItem>('test', [testItem])
             expect(Storage.prototype.setItem).toHaveBeenCalledWith('test', JSON.stringify([testItem]))
         })
     });
