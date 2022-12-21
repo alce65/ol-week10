@@ -12,7 +12,6 @@ export function Add({ handleAdd }: { handleAdd: (task: TaskStructure) => void })
     const [formData, setFormData] = useState(initialFormData);
 
     const handleInput = (ev: SyntheticEvent) => {
-        consoleDebug('Input');
         const element = ev.target as HTMLFormElement;
         setFormData({ ...formData, [element.name]: element.value });
     };
