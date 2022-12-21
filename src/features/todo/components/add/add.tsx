@@ -1,4 +1,5 @@
 import { SyntheticEvent, useState } from 'react';
+import { consoleDebug } from '../../../../tools/debug';
 import { Task, TaskType } from '../../models/task';
 import './add.css';
 
@@ -11,7 +12,7 @@ export function Add({ handleAdd }: { handleAdd: (task: TaskType) => void }) {
     const [formData, setFormData] = useState(initialFormData);
 
     const handleInput = (ev: SyntheticEvent) => {
-        console.log('Input');
+        consoleDebug('Input');
         const element = ev.target as HTMLFormElement;
         setFormData({ ...formData, [element.name]: element.value });
     };

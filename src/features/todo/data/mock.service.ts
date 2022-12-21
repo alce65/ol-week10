@@ -1,3 +1,4 @@
+import { consoleDebug } from '../../../tools/debug';
 import { Task, TaskType } from '../models/task';
 import { TASKS } from './mock.tasks';
 
@@ -15,6 +16,6 @@ export const getTasks = (): Promise<Array<TaskType>> => {
 };
 
 export const saveTasks = async (tasks: Array<Task>) => {
-    console.log('Saving');
+    consoleDebug('Saving');
     localStorage.setItem('Tasks', JSON.stringify(tasks));
 };
