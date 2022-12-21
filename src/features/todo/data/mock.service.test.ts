@@ -1,47 +1,65 @@
 import { Task } from '../models/task';
-import { getTasks, saveTasks } from './mock.service';
+import { getTasks, getTasksDelay, saveTasks } from './mock.service';
+import { getStorage, setStorage } from '../../../core/services/storage/storage';
 import { TASKS } from './mock.tasks';
 
-describe('Given getTasks', () => {
+jest.mock('../../../core/services/storage/storage')
+
+const mockData = ['test'];
+const testGetData = async () => {
+    const result = await getTasks();
+    expect(getStorage).toHaveBeenCalled();
+    expect(result).toEqual(mockData);
+}
+
+const testGetDefaultData = async () => {
+    const result = await getTasks();
+    expect(getStorage).toHaveBeenCalled();
+    expect(setStorage).toHaveBeenCalled();
+    expect(result).toEqual(TASKS);
+}
+
+
+const testGetDataDelay = async () => {
+    const result = await getTasksDelay();
+    expect(getStorage).toHaveBeenCalled();
+    expect(result).toEqual(mockData);
+}
+
+const testGetDefaultDataDelay = async () => {
+    const result = await getTasksDelay();
+    expect(getStorage).toHaveBeenCalled();
+    expect(setStorage).toHaveBeenCalled();
+    expect(result).toEqual(TASKS);
+}
+
+describe('Given getTasks or getTasksDelay', () => {
     describe('When I call it with data in local storage', () => {
-        const mockData = ['test'];
-        // Array<TaskType>;
         beforeEach(() => {
-            const mockDataString = JSON.stringify(mockData);
-            Storage.prototype.getItem = jest
-                .fn()
-                .mockReturnValue(mockDataString);
+            (getStorage as jest.Mock).mockReturnValue(mockData);
         });
-        test('Then the data should be obtained', async () => {
-            const result = await getTasks();
-            expect(localStorage.getItem).toHaveBeenCalled();
-            expect(result).toEqual(mockData);
-        });
+        test('Then the data should be obtained', testGetData);
+        test('Then the data should be obtained with delay also', testGetDataDelay);
     });
     describe('When I call it without data in local storage', () => {
         beforeEach(() => {
-            Storage.prototype.getItem = jest.fn().mockReturnValue(null);
-            Storage.prototype.setItem = jest.fn();
+            (getStorage as jest.Mock).mockReturnValue([]);
         });
-        test('Then the data from TASK should be obtained', async () => {
-            const result = await getTasks();
-            expect(localStorage.getItem).toHaveBeenCalled();
-            expect(localStorage.setItem).toHaveBeenCalled();
-            expect(result).toEqual(TASKS);
-        });
+        test('Then the data from TASK should be obtained', testGetDefaultData)
+        test('Then the data from TASK should be obtained  with delay also', testGetDefaultDataDelay)
     });
 });
+
+
 
 describe('Given saveTasks', () => {
     describe('When I call it', () => {
         test('Then localStorage should be use with the data', () => {
-            Storage.prototype.setItem = jest.fn();
             const mockTasks: Array<Task> = [];
-            const mockTasksString = JSON.stringify(mockTasks);
             saveTasks(mockTasks);
-            expect(localStorage.setItem).toHaveBeenCalledWith(
+            expect(setStorage).toHaveBeenCalledWith(
                 'Tasks',
-                mockTasksString
+                mockTasks
             );
         });
     });
