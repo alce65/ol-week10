@@ -4,7 +4,7 @@ type TestItem = {name: string}
 const testItem = {name: 'Test'} 
 
 describe('Given storage functions', () => {
-    describe('When we use getStorage', () => {
+    describe('When we use getStorage with data in localStorage', () => {
         beforeEach(() => {
             Storage.prototype.getItem = jest
                 .fn()
@@ -13,6 +13,18 @@ describe('Given storage functions', () => {
         test('Web API function should be call', () => {
             const result = getStorageList<TestItem>('test')
             expect(result).toEqual([testItem])
+            expect(Storage.prototype.getItem).toHaveBeenCalledWith('test')
+        })
+    });
+    describe('When we use getStorage without data in localStorage', () => {
+        beforeEach(() => {
+            Storage.prototype.getItem = jest
+                .fn()
+                .mockReturnValue(null);
+        })
+        test('Web API function should be call', () => {
+            const result = getStorageList<TestItem>('test')
+            expect(result).toEqual([])
             expect(Storage.prototype.getItem).toHaveBeenCalledWith('test')
         })
     });
