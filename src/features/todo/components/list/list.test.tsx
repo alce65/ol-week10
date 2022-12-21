@@ -27,10 +27,10 @@ describe('Given "List" component', () => {
             return <p>Task: {item.title}</p>;
         });
     });
-    describe('When it is initially instantiated without data', () => {
-        beforeEach(() => {
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            act(() => {
+    describe('When it is initially instantiated without data',  () => {
+        beforeEach(async () => {
+            (getTasks as jest.Mock).mockResolvedValue([]);
+            await act(async () => {
                 render(<List></List>);
 
                 // Render process:
@@ -57,10 +57,9 @@ describe('Given "List" component', () => {
     });
 
     describe('When it load the data from getTask', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            act(() => {
+            await act(async () => {
                 render(<List></List>);
                 // Render process:
                 // Define state -> tasks: []
@@ -85,7 +84,7 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method handleAdd() are called', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
             (Add as jest.Mock).mockImplementation(({ handleAdd }) => {
                 return (
@@ -98,8 +97,7 @@ describe('Given "List" component', () => {
                     </button>
                 );
             });
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            act(() => {
+            await act(async () => {
                 render(<List></List>);
             });
         });
@@ -113,7 +111,7 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method updateTask() are called', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             const mockUpdatedTask = new Task('Updated task', 'user');
             mockUpdatedTask.id = '000001';
             (getTasks as jest.Mock).mockResolvedValue([mockTask, mockAddTask]);
@@ -133,8 +131,7 @@ describe('Given "List" component', () => {
                     </>
                 );
             });
-            // eslint-disable-next-line testing-library/no-unnecessary-act
-            act(() => {
+            await act(async () => {
                 render(<List></List>);
             });
         });
@@ -152,14 +149,14 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method deleteTask()  are called', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
             (Item as jest.Mock).mockImplementation(
                 ({ item, handleUpdate, handleDelete }) => {
                     return (
                         <>
                             <p>
-                                Task: {item.id} {item.title}
+                                Task: {item.id} {item.title};
                             </p>
                             <button
                                 onClick={() => {
@@ -172,7 +169,9 @@ describe('Given "List" component', () => {
                     );
                 }
             );
-            render(<List></List>);
+            await act(async () => {
+                render(<List></List>)
+            })
         });
 
         test(`Then as the tasks array should be empty, 

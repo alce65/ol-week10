@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { consoleDebug } from '../../../../tools/debug';
 import { getTasks, saveTasks } from '../../data/mock.service';
 import { TaskType } from '../../models/task';
 import { Add } from '../add/add';
@@ -13,7 +14,7 @@ export function List() {
     const handleLoad = async () => {
         const data = await getTasks();
         setTasks(data);
-        console.log('LOAD');
+        consoleDebug('LOAD');
     };
 
     const handleAdd = function (task: TaskType) {
@@ -37,7 +38,7 @@ export function List() {
     }, []);
 
     useEffect(() => {
-        console.log('useEffect', { tasks });
+        consoleDebug('useEffect', { tasks });
         if (tasks.length) {
             saveTasks(tasks);
         }
@@ -52,7 +53,6 @@ export function List() {
             ) : (
                 <ul className="task-list">
                     {tasks.map((item) => {
-                        console.log({ item });
                         return (
                             <li key={item.id}>
                                 <Item
