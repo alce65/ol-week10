@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Sample } from './sample';
-import { getHour } from '../../services/time';
+import { getHour } from '../../services/time/time';
 
 jest.mock('../../services/time');
 

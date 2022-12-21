@@ -1,4 +1,4 @@
-import { getHour } from '../../services/time';
+import { getHour } from '../../services/time/time';
 import './sample.css';
 export function Sample({ children }: { children: JSX.Element }) {
     // Controller del componente
