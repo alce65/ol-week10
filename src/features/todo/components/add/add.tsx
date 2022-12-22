@@ -1,9 +1,12 @@
 import { SyntheticEvent, useState } from 'react';
-import { consoleDebug } from '../../../../tools/debug';
 import { Task, TaskStructure } from '../../models/task';
 import './add.css';
 
-export function Add({ handleAdd }: { handleAdd: (task: TaskStructure) => void }) {
+export function Add({
+    handleAdd,
+}: {
+    handleAdd: (task: TaskStructure) => void;
+}) {
     const initialFormData: Partial<TaskStructure> = {
         title: '',
         responsible: '',
