@@ -1,13 +1,10 @@
 import { SyntheticEvent, useState } from 'react';
-import { Note, NoteStructure } from '../../models/note';
+
+import { NoteLite, NoteNoId } from '../../models/note';
 import './add.css';
 
-export function Add({
-    handleAdd,
-}: {
-    handleAdd: (note: NoteStructure) => void;
-}) {
-    const initialFormData: Partial<NoteStructure> = {
+export function Add({ handleAdd }: { handleAdd: (note: NoteNoId) => void }) {
+    const initialFormData: Partial<NoteNoId> = {
         title: '',
         author: '',
     };
@@ -22,7 +19,7 @@ export function Add({
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         handleAdd(
-            new Note(
+            new NoteLite(
                 formData.title as string,
                 formData.author ? formData.author : ''
             )

@@ -25,3 +25,10 @@ export class Note implements NoteStructure {
         this.isImportant = false;
     }
 }
+
+export class NoteLite implements NoteNoId {
+    isImportant: boolean;
+    constructor(public title: string, public author: string) {
+        this.isImportant = false;
+    }
+}
