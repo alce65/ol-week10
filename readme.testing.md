@@ -68,14 +68,14 @@ render(
 ### Componente 'interactivos'
 
 Se deben comprobar todas las posibles interacciones del usuario con el componente
-Para ello se utiliza userEvent, importado desde '@testing-library/user-event'
+Para ello se utiliza **userEvent**, importado desde '@testing-library/user-event'
 
 En los inputs, el evento type permite simular que se escribe en ellos
 El matcher toHaveValue permite comprobar el valor recogido en el input
 
 ```tsx
 const mockTitle = 'Test task';
-const inputElement = screen.getAllByRole('textbox'); // <input>
+const inputElement = screen.getByRole('textbox'); // <input>
 expect(inputElement).toBeInTheDocument();
 userEvent.type(inputElement, mockTitle);
 expect(inputElements[0]).toHaveValue(mockTitle);
@@ -93,7 +93,7 @@ se reflejan en los valores que se muestran en el componente
 
 ```tsx
 button = screen.getByRole('button');
-fireEvent.click(button);
+userEvent.click(button);
 const value = screen.getByText(/value: 1/i);
 const clicks = screen.getByText(/clicks: 1/i);
 expect(value).toBeInTheDocument();
@@ -227,14 +227,14 @@ const pageTitle = 'Test Home';
 
 jest.mock('../../../features/home/pages/home.page');
 
-(TodoPage as jest.Mock).mockReturnValue(<p>{pageTitle}</p>);
+(HomePage as jest.Mock).mockReturnValue(<p>{pageTitle}</p>);
 ```
 
 Al renderizar el componente de rutas, el MemoryRouter permite indicarle que ruta se esta usando,
 y en consecuencia comprobar que se a renderizado el mock del componente asociado a esa ruta.
 
 ```tsx
-paths = ['/home', '/todo', '/about]
+paths = ['/home', '/todo', '/about'];
 render(
     <Router initialEntries={paths} initialIndex={0}>
         <AppRoutes items={items} />
@@ -269,7 +269,6 @@ expect(result).toBeInstanceOf(Task);
 expect(result).toHaveProperty('title', mockTitle);
 expect(result).toHaveProperty('responsible', mockResponsible);
 expect(result).toHaveProperty('isCompleted', false);
-s;
 ```
 
 ### Storage Service
@@ -367,7 +366,7 @@ al tener que testar dos implementaciones diferentes pero con idénticos test
 
 ## Testing de componentes complejos. Mocks
 
-El componente controlador, dentro del modelo controlador/presentador,
+El componente controlador, dentro del patrón controlador/presentador,
 tiene las funciones responsables de toda la lógica relativa al estado, lo que lo hace relativamente difícil de testar de forma unitaria, teniendo en cuenta que es imposible acceder directamente a las mencionadas funciones:
 
 -   handleLoad
