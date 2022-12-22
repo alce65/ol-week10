@@ -1,9 +1,13 @@
 import { SyntheticEvent, useState } from 'react';
-import { Task, TaskType } from '../../models/task';
+import { Task, TaskStructure } from '../../models/task';
 import './add.css';
 
-export function Add({ handleAdd }: { handleAdd: (task: TaskType) => void }) {
-    const initialFormData: Partial<TaskType> = {
+export function Add({
+    handleAdd,
+}: {
+    handleAdd: (task: TaskStructure) => void;
+}) {
+    const initialFormData: Partial<TaskStructure> = {
         title: '',
         responsible: '',
     };
@@ -11,7 +15,6 @@ export function Add({ handleAdd }: { handleAdd: (task: TaskType) => void }) {
     const [formData, setFormData] = useState(initialFormData);
 
     const handleInput = (ev: SyntheticEvent) => {
-        console.log('Input');
         const element = ev.target as HTMLFormElement;
         setFormData({ ...formData, [element.name]: element.value });
     };

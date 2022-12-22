@@ -1,4 +1,4 @@
-import { TaskType } from '../../models/task';
+import { TaskStructure } from '../../models/task';
 import './item.css';
 
 export function Item({
@@ -6,9 +6,9 @@ export function Item({
     handleUpdate,
     handleDelete,
 }: {
-    item: TaskType;
-    handleUpdate: (task: Partial<TaskType>) => void;
-    handleDelete: (id: TaskType['id']) => void;
+    item: TaskStructure;
+    handleUpdate: (task: Partial<TaskStructure>) => void;
+    handleDelete: (id: TaskStructure['id']) => void;
 }) {
     const handleChange = () => {
         item.isCompleted = !item.isCompleted;

@@ -1,20 +1,35 @@
-import { Task, TaskType } from '../models/task';
+import { getStorageList, setStorageList } from '../../../core/services/storage/storage';
+import { consoleDebug } from '../../../tools/debug';
+import { Task, TaskStructure } from '../models/task';
 import { TASKS } from './mock.tasks';
 
-export const getTasks = (): Promise<Array<TaskType>> => {
+export const getTasks = async (): Promise<Array<TaskStructure>> => {
+    const data = getStorageList<Task>('Tasks');
+    if (!data.length) {
+        setStorageList('Tasks', TASKS);
+        return(TASKS);
+    }
+    return(data);
+};
+
+export const getTasksDelay = (): Promise<Array<TaskStructure>> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const data = localStorage.getItem('Tasks');
-            if (!data) {
-                localStorage.setItem('Tasks', JSON.stringify(TASKS));
+            const data = getStorageList<Task>('Tasks');
+            if (!data.length) {
+                setStorageList('Tasks', TASKS);
                 resolve(TASKS);
             }
-            resolve(JSON.parse(data as string) as Array<TaskType>);
+            resolve(data);
         }, 2000);
     });
 };
 
 export const saveTasks = async (tasks: Array<Task>) => {
-    console.log('Saving');
-    localStorage.setItem('Tasks', JSON.stringify(tasks));
+    consoleDebug('Saving');
+    setStorageList('Tasks', tasks)
 };
+
+
+
+

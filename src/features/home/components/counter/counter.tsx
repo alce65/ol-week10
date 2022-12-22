@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { consoleDebug } from '../../../../tools/debug';
 import './counter.css';
 export function Counter({ setTotal }: { setTotal: () => void }) {
     // Esta sería la variable al margen del state:
@@ -16,7 +17,7 @@ export function Counter({ setTotal }: { setTotal: () => void }) {
     const [count, setCount] = useState(initialState);
 
     useEffect(() => {
-        console.log(count);
+        consoleDebug(count);
     }, [count]);
 
     // Sin destructuring

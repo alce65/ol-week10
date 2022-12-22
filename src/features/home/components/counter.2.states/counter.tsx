@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { consoleDebug } from '../../../../tools/debug';
 import './counter.css';
 export function Counter2({ setTotal }: { setTotal: () => void }) {
     const [count, setCount] = useState(0);
     const [clicks, setClicks] = useState(0);
 
     useEffect(() => {
-        console.log(count);
+        consoleDebug(count);
     }, [count]);
 
     const handlerClick = (increment: number) => {
