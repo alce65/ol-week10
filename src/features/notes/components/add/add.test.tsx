@@ -21,7 +21,7 @@ describe('Given "Add" component', () => {
 
     describe('When data are provided in the form', () => {
         const mockTitle = 'Test task';
-        const mockUser = 'Test user';
+        const mockAuthor = 'Test author';
         let inputElements: Array<HTMLElement>;
         let elementButton: HTMLElement;
         beforeEach(() => {
@@ -32,13 +32,13 @@ describe('Given "Add" component', () => {
             expect(inputElements[0]).toBeInTheDocument();
             expect(inputElements[1]).toBeInTheDocument();
             userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockUser);
+            userEvent.type(inputElements[1], mockAuthor);
             expect(inputElements[0]).toHaveValue(mockTitle);
-            expect(inputElements[1]).toHaveValue(mockUser);
+            expect(inputElements[1]).toHaveValue(mockAuthor);
         });
         test('Then form could be used for send the function received in props', () => {
             userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockUser);
+            userEvent.type(inputElements[1], mockAuthor);
             userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });

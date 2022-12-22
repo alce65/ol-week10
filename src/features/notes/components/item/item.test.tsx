@@ -7,8 +7,8 @@ describe('Given "Item" component', () => {
     const updateNote = jest.fn();
     const deleteNote = jest.fn();
     const mockTitle = 'Test note';
-    const mockUser = 'Test user';
-    const mockNote = new Note(mockTitle, mockUser);
+    const mockAuthor = 'Test author';
+    const mockNote = new Note(mockTitle, mockAuthor);
     describe('When data are provided in the component', () => {
         test('Then user could interact with them', async () => {
             render(
@@ -25,7 +25,7 @@ describe('Given "Item" component', () => {
                 screen.getByRole('button'),
             ];
             expect(elements[1]).toHaveValue(mockTitle);
-            expect(elements[2]).toHaveValue(mockUser);
+            expect(elements[2]).toHaveValue(mockAuthor);
             userEvent.click(elements[0]);
             expect(updateNote).toHaveBeenCalledTimes(1);
             userEvent.click(elements[3]);

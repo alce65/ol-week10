@@ -33,14 +33,6 @@ describe('Given "List" component', () => {
         beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
-                // Render process:
-                // Define state -> notes: []
-                // Renderiza el componente -> Loading
-                // useEffect -> savedNoteMock -> clg []
-                // useEffect inicio -> handleLoad()
-                //  |-> getNotesMock([])
-                //  |-> setNotes -> no efecto
-                //  |-> clg LOAD
             });
         });
         test(`Then it should be render the loading`, () => {
@@ -63,15 +55,6 @@ describe('Given "List" component', () => {
         beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
-                // Render process:
-                // Define state -> notes: []
-                // Renderiza el componente -> Loading
-                // useEffect -> savedNoteMock -> clg []
-                // useEffect inicio -> handleLoad()
-                //  |-> getNotesMock([])
-                //  |-> setNotes -> [mockNote]
-                //  |-> clg LOAD
-                // useEffect -> savedNoteMock -> clg [mockNote]
             });
         });
         test(`Then it should be render the data`, async () => {
