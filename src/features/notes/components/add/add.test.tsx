@@ -2,26 +2,26 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Add } from './add';
 
-describe('Given "Add" component', () => {
+describe('Given "Add" component in "Notes" feature', () => {
     const handleAdd = jest.fn();
 
     beforeEach(() => {
         render(<Add handleAdd={handleAdd}></Add>);
     });
 
-    describe('When it is call with a DOM implementation', () => {
-        test(`Then component should be render with its title`, () => {
-            const elementHeader = screen.getByRole('heading', {
+    describe('When component is call with a DOM implementation', () => {
+        test(`Then it should be render with its title`, () => {
+            const noteHeader = screen.getByRole('heading', {
                 name: 'Añadir nota',
             }); // <h1>
 
-            expect(elementHeader).toBeInTheDocument();
+            expect(noteHeader).toBeInTheDocument();
         });
     });
 
     describe('When data are provided in the form', () => {
-        const mockTitle = 'Test task';
         const mockAuthor = 'Test author';
+        const mockTitle = 'Test task';
         let inputElements: Array<HTMLElement>;
         let elementButton: HTMLElement;
         beforeEach(() => {

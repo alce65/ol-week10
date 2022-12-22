@@ -35,12 +35,14 @@ describe('Given "List" component', () => {
                 render(<List></List>);
             });
         });
-        test(`Then it should be render the loading`, () => {
+        test(`Then component should be render the loading`, () => {
             const elementTitle = screen.getByRole('heading', {
                 name: 'Lista de notas',
             }); // <h3>
-            const elementAdd = screen.getByText(/Mock Add/i);
-            const elementLoading = screen.getByText(/Loading/i);
+            const addLabel = /Mock Add/i;
+            const loadingLabel = /Loading/i;
+            const elementAdd = screen.getByText(addLabel);
+            const elementLoading = screen.getByText(loadingLabel);
             expect(elementTitle).toBeInTheDocument();
             expect(elementAdd).toBeInTheDocument();
             expect(elementLoading).toBeInTheDocument();
