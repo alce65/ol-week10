@@ -480,7 +480,7 @@ Por tanto es necesario que estos reciban por props las funciones 'manejadoras' d
 ```tsx
 <Add handleAdd={handleAdd}></Add>
 ...
- <Item
+<Item
     item={item}
     handleUpdate={handleUpdate}
     handleDelete={handleDelete}
