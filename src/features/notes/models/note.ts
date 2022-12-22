@@ -1,4 +1,9 @@
 // Se puede usar type, interface o class
+export type NoteNoId = {
+    title: string;
+    author: string;
+    isImportant: boolean;
+};
 
 export type NoteStructure = {
     id: string;
