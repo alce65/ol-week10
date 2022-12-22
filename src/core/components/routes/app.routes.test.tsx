@@ -13,7 +13,7 @@ jest.mock('../../../features/home/pages/home.page');
 jest.mock('../../../features/todo/pages/todo.page');
 jest.mock('../../../features/about/pages/about.page');
 
-const testRoute = (index: number) => {
+export const testRoute = (index: number) => {
     const title = new RegExp(pageTitles[index], 'i'); // Antes /Test Home/i;
     const element = screen.getByText(title);
     expect(element).toBeInTheDocument();

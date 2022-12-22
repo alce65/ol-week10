@@ -6,6 +6,7 @@ import TodoPage from '../../../features/todo/pages/todo.page';
 import AboutPage from '../../../features/about/pages/about.page';
 import { MenuItems } from '../../types/menu.item';
 import { AppRoutes } from './app.routes';
+import { testRoute } from './app.routes.test';
 
 const pageTitles = ['Test Home', 'Test Todo', 'Test About'];
 
@@ -13,22 +14,16 @@ jest.mock('../../../features/home/pages/home.page');
 jest.mock('../../../features/todo/pages/todo.page');
 jest.mock('../../../features/about/pages/about.page');
 
-const testRoute = (index: number) => {
-    const title = new RegExp(pageTitles[index], 'i'); // Antes /Test Home/i;
-    const element = screen.getByText(title);
-    expect(element).toBeInTheDocument();
-};
-
-describe('Given AppRoutes component, if the user is NOT logged', () => {
-    let paths: Array<string>;
-    let items: MenuItems;
+describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
+    let lazyPaths: Array<string>;
+    let lazyItems: MenuItems;
     beforeEach(() => {
-        items = [
+        lazyItems = [
             { path: '/home', label: 'Inicio' },
             { path: '/todo', label: 'Tareas' },
             { path: '/about', label: 'Nosotros' },
         ];
-        paths = items.map((item) => item.path);
+        lazyPaths = lazyItems.map((item) => item.path);
     });
     describe(`When we render the component 
                 And the route is home`, () => {
@@ -36,8 +31,8 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
             (HomePage as jest.Mock).mockReturnValue(<p>{pageTitles[0]}</p>);
             await act(async () => {
                 render(
-                    <Router initialEntries={paths} initialIndex={0}>
-                        <AppRoutes items={items} />
+                    <Router initialEntries={lazyPaths} initialIndex={0}>
+                        <AppRoutes items={lazyItems} />
                     </Router>
                 );
             });
@@ -52,8 +47,8 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
             (TodoPage as jest.Mock).mockReturnValue(<p>{pageTitles[1]}</p>);
             await act(async () => {
                 render(
-                    <Router initialEntries={paths} initialIndex={1}>
-                        <AppRoutes items={items} />
+                    <Router initialEntries={lazyPaths} initialIndex={1}>
+                        <AppRoutes items={lazyItems} />
                     </Router>
                 );
             });
@@ -68,8 +63,8 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
             (AboutPage as jest.Mock).mockReturnValue(<p>{pageTitles[2]}</p>);
             await act(async () => {
                 render(
-                    <Router initialEntries={paths} initialIndex={2}>
-                        <AppRoutes items={items} />
+                    <Router initialEntries={lazyPaths} initialIndex={2}>
+                        <AppRoutes items={lazyItems} />
                     </Router>
                 );
             });
