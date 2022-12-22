@@ -1,9 +1,9 @@
-form.add-task label {
+form.add-note label {
     display: block;
     padding-block-end: 0.5rem;
 }
 
-form.add-task input {
+form.add-note input {
     border: none;
     border-block-end: 2px solid var(--light-gray);
     width: 100%;
