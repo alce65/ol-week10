@@ -3,14 +3,16 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import HomePage from '../../../features/home/pages/home.page';
 import TodoPage from '../../../features/todo/pages/todo.page';
+import NotesPage from '../../../features/notes/pages/notes.page';
 import AboutPage from '../../../features/about/pages/about.page';
 import { MenuItems } from '../../types/menu.item';
 import { AppRoutes } from './app.routes';
 
-const pageTitles = ['Test Home', 'Test Todo', 'Test About'];
+const pageTitles = ['Test Home', 'Test Todo', 'Test Notes', 'Test About'];
 
 jest.mock('../../../features/home/pages/home.page');
 jest.mock('../../../features/todo/pages/todo.page');
+jest.mock('../../../features/notes/pages/notes.page');
 jest.mock('../../../features/about/pages/about.page');
 
 const testRoute = (index: number) => {
@@ -26,6 +28,7 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
         items = [
             { path: '/home', label: 'Inicio' },
             { path: '/todo', label: 'Tareas' },
+            { path: '/notes', label: 'Notas' },
             { path: '/about', label: 'Nosotros' },
         ];
         paths = items.map((item) => item.path);
@@ -51,14 +54,24 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
             testRoute(1);
         });
 
-        test('Then, if the route is about, it should display the AboutPage', () => {
-            (AboutPage as jest.Mock).mockReturnValue(<p>{pageTitles[2]}</p>);
+        test('Then, if the route is notes, it should display the NotesPage', () => {
+            (NotesPage as jest.Mock).mockReturnValue(<p>{pageTitles[2]}</p>);
             render(
                 <Router initialEntries={paths} initialIndex={2}>
                     <AppRoutes items={items} />
                 </Router>
             );
             testRoute(2);
+        });
+
+        test('Then, if the route is about, it should display the AboutPage', () => {
+            (AboutPage as jest.Mock).mockReturnValue(<p>{pageTitles[3]}</p>);
+            render(
+                <Router initialEntries={paths} initialIndex={3}>
+                    <AppRoutes items={items} />
+                </Router>
+            );
+            testRoute(3);
         });
     });
 });

@@ -6,6 +6,7 @@ export function App() {
     const items: MenuItems = [
         { path: '/home', label: 'Inicio' },
         { path: '/todo', label: 'Tareas' },
+        { path: '/notes', label: 'Notas' },
         { path: '/about', label: 'Nosotros' },
     ];
     return (
