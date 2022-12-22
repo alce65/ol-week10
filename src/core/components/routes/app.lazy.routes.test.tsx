@@ -1,18 +1,26 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
-import HomePage from '../../../features/home/pages/home.page';
-import TodoPage from '../../../features/todo/pages/todo.page';
-import AboutPage from '../../../features/about/pages/about.page';
 import { MenuItems } from '../../types/menu.item';
-import { AppRoutes } from './app.routes';
-import { testRoute } from './app.routes.test';
+import { AppLazyRoutes } from './app.lazy.routes';
 
 const pageTitles = ['Test Home', 'Test Todo', 'Test About'];
 
-jest.mock('../../../features/home/pages/home.page');
-jest.mock('../../../features/todo/pages/todo.page');
-jest.mock('../../../features/about/pages/about.page');
+const testLazyRoute = (index: number) => {
+    const title = new RegExp(pageTitles[index], 'i'); // Antes /Test Home/i;
+    const lazyElement = screen.getByText(title);
+    expect(lazyElement).toBeInTheDocument();
+};
+
+jest.mock('../../../features/home/pages/home.page', () => {
+    return () => <p>{pageTitles[0]}</p>;
+});
+jest.mock('../../../features/todo/pages/todo.page', () => {
+    return () => <p>{pageTitles[1]}</p>;
+});
+jest.mock('../../../features/about/pages/about.page', () => {
+    return () => <p>{pageTitles[2]}</p>;
+});
 
 describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
     let lazyPaths: Array<string>;
@@ -26,51 +34,48 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
         lazyPaths = lazyItems.map((item) => item.path);
     });
     describe(`When we render the component 
-                And the route is home`, () => {
+                And the lazy route is home`, () => {
         beforeEach(async () => {
-            (HomePage as jest.Mock).mockReturnValue(<p>{pageTitles[0]}</p>);
             await act(async () => {
                 render(
                     <Router initialEntries={lazyPaths} initialIndex={0}>
-                        <AppRoutes items={lazyItems} />
+                        <AppLazyRoutes items={lazyItems} />
                     </Router>
                 );
             });
         });
         test('Then it should display the HomePage', () => {
-            testRoute(0);
+            testLazyRoute(0);
         });
     });
     describe(`When we render the component 
-                And the route is todo`, () => {
+                And the lazy route is todo`, () => {
         beforeEach(async () => {
-            (TodoPage as jest.Mock).mockReturnValue(<p>{pageTitles[1]}</p>);
             await act(async () => {
                 render(
                     <Router initialEntries={lazyPaths} initialIndex={1}>
-                        <AppRoutes items={lazyItems} />
+                        <AppLazyRoutes items={lazyItems} />
                     </Router>
                 );
             });
         });
         test('Then it should display the TodoPage', () => {
-            testRoute(1);
+            testLazyRoute(1);
         });
     });
     describe(`When we render the component 
-                And the route is about`, () => {
+                And the lazy route is about`, () => {
         beforeEach(async () => {
-            (AboutPage as jest.Mock).mockReturnValue(<p>{pageTitles[2]}</p>);
             await act(async () => {
                 render(
                     <Router initialEntries={lazyPaths} initialIndex={2}>
-                        <AppRoutes items={lazyItems} />
+                        <AppLazyRoutes items={lazyItems} />
                     </Router>
                 );
             });
         });
         test('Then it should display the AboutPage', () => {
-            testRoute(2);
+            testLazyRoute(2);
         });
     });
 });

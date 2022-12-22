@@ -6,7 +6,7 @@ const Home = lazy(() => import('../../../features/home/pages/home.page'));
 const Todo = lazy(() => import('../../../features/todo/pages/todo.page'));
 const About = lazy(() => import('../../../features/about/pages/about.page'));
 
-export function AppRoutes({ items }: { items: MenuItems }) {
+export function AppLazyRoutes({ items }: { items: MenuItems }) {
     return (
         <Suspense>
             <Routes>
