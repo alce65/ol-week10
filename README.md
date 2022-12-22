@@ -610,7 +610,19 @@ const handleClick = () => {
 Testing de componentes con react/testing-library. Conceptos (Kent C. Dodds); render y screen. Matchers
 Paso de props en los tests. Test del child content. MemoryRouter.
 Componentes dinámicos: mock "handle" functions. Eventos: userEvent. Opciones de jest runner. Coverage
-Robots CRUD: Front completo React básico + API en JSON Server + Testing
+
+### Nueva feature: NotesList (CRUD)
+
+-   Feature/Page: nueva página con su test
+-   App: nuevo item en la lista de MenuItems
+-   Nueva ruta en AppRoutes / AppRutesLazy
+-   Tests correspondientes a la nueva ruta
+-   Modelo de datos y su test
+-   Servicio mock de los datos y su test
+-   Componentes con sus tests:
+    -   Add
+    -   Item
+    -   List
 
 ### Datos desde un API
 
@@ -625,6 +637,8 @@ Robots CRUD: Front completo React básico + API en JSON Server + Testing
 -   TaskRepository -> class implementing the interface
 
 ---
+
+## Robots CRUD: Front completo React básico + API en JSON Server + Testing
 
 # Redux
 
