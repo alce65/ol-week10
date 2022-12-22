@@ -26,12 +26,13 @@ describe('Given "List" component', () => {
             return <p>Task: {item.title}</p>;
         });
     });
-    describe('When it is initially instantiated without data',  () => {
-        beforeEach(async () => {
+    describe('When it is initially instantiated without data', () => {
+        beforeEach(() => {
             (getTasks as jest.Mock).mockResolvedValue([]);
+        });
+        beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
-
                 // Render process:
                 // Define state -> tasks: []
                 // Renderiza el componente -> Loading
@@ -56,8 +57,10 @@ describe('Given "List" component', () => {
     });
 
     describe('When it load the data from getTask', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
+        });
+        beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
                 // Render process:
@@ -83,7 +86,7 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method handleAdd() are called', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             (getTasks as jest.Mock).mockResolvedValue(mockTasks);
             (Add as jest.Mock).mockImplementation(({ handleAdd }) => {
                 return (
@@ -96,6 +99,8 @@ describe('Given "List" component', () => {
                     </button>
                 );
             });
+        });
+        beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
             });
@@ -110,7 +115,7 @@ describe('Given "List" component', () => {
     });
 
     describe('When its method updateTask() are called', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             const mockUpdatedTask = new Task('Updated task', 'user');
             mockUpdatedTask.id = '000001';
             (getTasks as jest.Mock).mockResolvedValue([mockTask, mockAddTask]);
@@ -130,6 +135,8 @@ describe('Given "List" component', () => {
                     </>
                 );
             });
+        });
+        beforeEach(async () => {
             await act(async () => {
                 render(<List></List>);
             });
@@ -168,9 +175,11 @@ describe('Given "List" component', () => {
                     );
                 }
             );
+        });
+        beforeEach(async () => {
             await act(async () => {
-                render(<List></List>)
-            })
+                render(<List></List>);
+            });
         });
 
         test(`Then as the tasks array should be empty, 

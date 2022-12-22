@@ -191,7 +191,60 @@ render(
 
 ### Test de las páginas
 
+Son componentes muy sencillos.
+En muchos casos renderizan un título o exclusivamente los componentes que contienen.
+
+Si estos componentes son complejos, pueden convertirse en mocks
+para tetar aisladamente la página
+
+```tsx
+jest.mock('../components/list/list');
+(List as jest.Mock).mockImplementation(() => {
+    return <p>Mock List</p>;
+});
+
+const title = /Todo/i;
+render(<TodoPage />);
+const elementHeader = screen.getByRole('heading', {
+    name: title,
+});
+expect(elementHeader).toBeInTheDocument();
+```
+
 ### Tests de rutas. Memory Router
+
+En principio las rutas pueden quedar 'cubiertas' en el coverage
+si se testan las páginas/componentes a las que apuntan.
+
+También es posible testarlas directamente.
+
+Para no depender de los componentes reales, se utiliza un mock de estos
+cuya implementación se limita a mostrar un titulo
+
+```tsx
+import HomePage from '../../../features/home/pages/home.page';
+const pageTitle = 'Test Home';
+
+jest.mock('../../../features/home/pages/home.page');
+
+(TodoPage as jest.Mock).mockReturnValue(<p>{pageTitle}</p>);
+```
+
+Al renderizar el componente de rutas, el MemoryRouter permite indicarle que ruta se esta usando,
+y en consecuencia comprobar que se a renderizado el mock del componente asociado a esa ruta.
+
+```tsx
+paths = ['/home', '/todo', '/about]
+render(
+    <Router initialEntries={paths} initialIndex={0}>
+        <AppRoutes items={items} />
+    </Router>
+);
+
+const title = /pageTitle/i;
+const element = screen.getByText(title);
+expect(element).toBeInTheDocument();
+```
 
 ## Testing de funciones y servicios
 
@@ -313,3 +366,199 @@ en lugar de las habituales funciones anónimas, para evitar duplicaciones
 al tener que testar dos implementaciones diferentes pero con idénticos test
 
 ## Testing de componentes complejos. Mocks
+
+El componente controlador, dentro del modelo controlador/presentador,
+tiene las funciones responsables de toda la lógica relativa al estado, lo que lo hace relativamente difícil de testar de forma unitaria, teniendo en cuenta que es imposible acceder directamente a las mencionadas funciones:
+
+-   handleLoad
+-   handleAdd
+-   handleUpdate
+-   handleDelete
+
+Para hacerlo se necesita convertir en mock los componentes presentadores y el servicio responsable de los datos
+
+```tsx
+import { Add } from '../add/add';
+import { Item } from '../item/item';
+import { getTasks, saveTasks } from '../../data/mock.service';
+
+jest.mock('../add/add');
+jest.mock('../item/item');
+jest.mock('../../data/mock.service');
+```
+
+Las implementaciones del mock del servicio permitirán definir distintos casos de usos en función de los datos recibidos
+
+Las implementaciones de los componentes presentadores proporcionaran los elementos de interfaz necesarios para permitir las acciones del usuario que desencadenan los eventos responsables de la llamada a las funciones del controlador que modifican el estado.
+
+### Testing handleLoad
+
+Para el test de la carga de los datos, estas implementaciones serían
+
+```tsx
+(Add as jest.Mock).mockImplementation(() => {
+    return <p>Mock Add</p>;
+});
+(Item as jest.Mock).mockImplementation(({ item }) => {
+    return <p>Task: {item.title}</p>;
+});
+
+// 1. Para el caso en que no hay datos en locaStorage
+(getTasks as jest.Mock).mockResolvedValue([]);
+
+// 2. Para el caso en el que si hay datos
+
+(getTasks as jest.Mock).mockResolvedValue(mockTasks);
+```
+
+En cualquiera de los casos, el renderizado debe estar controlado especialmente, porque conlleva cambios en el estado:
+
+-   Define state -> tasks: []
+-   Renderiza el componente -> Loading
+-   useEffect -> savedTaskMock -> clg []
+-   useEffect inicio -> handleLoad()
+-   |-> getTasksMock([])
+-   |-> setTasks -> [mockTask]
+-   useEffect -> savedTaskMock -> clg [mockTask]
+
+```tsx
+beforeEach(async () => {
+    await act(async () => {
+        render(<List></List>);
+    });
+});
+```
+
+Finalmente el test comprueba
+
+-   que inicialmente se renderiza el componente
+-   que el mock del servicio ha sido llamado
+-   que los datos proporcionado por el mock del servicio
+    se han mostrado enl documento (screen)
+
+```tsx
+const elementList = await screen.findByRole('list'); // <ul />
+expect(elementList).toBeInTheDocument();
+await waitFor(() => {
+    expect(saveTasks).toHaveBeenCalled();
+});
+const elementItem = await screen.findByText(/Test task/i);
+expect(elementItem).toBeInTheDocument();
+```
+
+### Testing handleAdd
+
+Se necesita una implementación del mock del componente Add similar a la del original, en la que poder desencadenar el evento click en el botón submit del formulario de añadir tareas
+
+```tsx
+(Add as jest.Mock).mockImplementation(({ handleAdd }) => {
+    return (
+        <button
+            onClick={() => {
+                handleAdd(mockAddTask);
+            }}
+        >
+            Mock Add
+        </button>
+    );
+});
+```
+
+En el test se simula la interacción con el botón se comprueba
+
+-   que el documento (screen) refleja la nueva información
+-   que ha sido llamado el mock del servicio
+    responsable de la persistencia de los datos
+
+```tsx
+const button = screen.getByRole('button');
+userEvent.click(button);
+const addItem = await screen.findByText(/Added task/i);
+expect(addItem).toBeInTheDocument();
+expect(saveTasks).toHaveBeenCalled();
+```
+
+### Testing handleUpdate
+
+Se necesita una implementación del mock del componente Item similar a una parte del original, en la que poder desencadenar el evento click que actualiza la información de la tarea
+
+```tsx
+const mockUpdatedTask = new Task('Updated task', 'user');
+mockUpdatedTask.id = '000001';
+(getTasks as jest.Mock).mockResolvedValue([mockTask, mockAddTask]);
+(Item as jest.Mock).mockImplementation(({ item, handleUpdate }) => {
+    return (
+        <>
+            <p>
+                Task: {item.id} {item.title}
+            </p>
+            <button
+                onClick={() => {
+                    handleUpdate(mockUpdatedTask);
+                }}
+            >
+                Update
+            </button>
+        </>
+    );
+});
+```
+
+En el test interacciona con el botón de actualizar y se comprueba
+
+-   que ha sido llamado el mock del servicio
+    responsable de la persistencia de los datos
+-   que el documento (screen) refleja la nueva información
+
+```tsx
+const title = /Updated task/i;
+const buttons = await screen.findAllByRole('button', {
+    name: 'Update',
+});
+userEvent.click(buttons[0]);
+expect(saveTasks).toHaveBeenCalled();
+const updateItem = await screen.findByText(title);
+expect(updateItem).toBeInTheDocument();
+```
+
+### Testing handleDelete
+
+Se necesita una implementación del mock del componente Item similar a una parte del original, en la que poder desencadenar el evento click en el botón de eliminar
+
+```tsx
+(getTasks as jest.Mock).mockResolvedValue(mockTasks);
+(Item as jest.Mock).mockImplementation(
+    ({ item, handleUpdate, handleDelete }) => {
+        return (
+            <>
+                <p>
+                    Task: {item.id} {item.title};
+                </p>
+                <button
+                    onClick={() => {
+                        handleDelete(mockTask.id);
+                    }}
+                >
+                    Delete
+                </button>
+            </>
+        );
+    }
+);
+```
+
+En el test interacciona con el botón de borrar y se comprueba
+
+-   que ha sido llamado el mock del servicio
+    responsable de la persistencia de los datos
+-   que el documento (screen) refleja la ausencia de datos, volviendo a aparecer el loader inicial
+
+```tsx
+const button = await screen.findByRole('button', {
+    name: 'Delete',
+});
+userEvent.click(button);
+expect(saveTasks).toHaveBeenCalled();
+const elementLoading = screen.getByText(/Loading/i);
+expect(elementLoading).toBeInTheDocument();
+```
