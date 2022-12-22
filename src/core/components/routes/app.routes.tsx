@@ -1,7 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AboutPage from '../../../features/about/pages/about.page';
 import HomePage from '../../../features/home/pages/home.page';
+import NotesPage from '../../../features/notes/pages/notes.page';
 import TodoPage from '../../../features/todo/pages/todo.page';
+
 import { MenuItems } from '../../types/menu.item';
 
 export function AppRoutes({ items }: { items: MenuItems }) {
@@ -12,6 +14,10 @@ export function AppRoutes({ items }: { items: MenuItems }) {
             <Route path={items[1].path} element={<TodoPage></TodoPage>}></Route>
             <Route
                 path={items[2].path}
+                element={<NotesPage></NotesPage>}
+            ></Route>
+            <Route
+                path={items[3].path}
                 element={<AboutPage></AboutPage>}
             ></Route>
             <Route
