@@ -1,8 +1,63 @@
-# Frontend in React: week 10
+# Frontend in React
 
-## Día 1
+- [Frontend in React](#frontend-in-react)
+    - [Week 10 - Día 1](#week-10---día-1)
+        - [Daily. Code Review (Week 10)](#daily-code-review-week-10)
+        - [Installation](#installation)
+            - [EditorConfig / Prettier](#editorconfig--prettier)
+                - [Prettier](#prettier)
+                - [.editorconfig](#editorconfig)
+            - [ESLInt. Configuración extra: TS](#eslint-configuración-extra-ts)
+            - [Jest. Configuración extra](#jest-configuración-extra)
+            - [NPM Scripts adicionales](#npm-scripts-adicionales)
+                - [`npm start`](#npm-start)
+                - [`npm test`](#npm-test)
+                - [`npm run build`](#npm-run-build)
+                - [`npm run eject`](#npm-run-eject)
+            - [Custom NPM Scripts adicionales](#custom-npm-scripts-adicionales)
+    - [Week 10 - Dia 2](#week-10---dia-2)
+        - [Estructura del proyecto](#estructura-del-proyecto)
+            - [Features](#features)
+            - [Infrastructure / Core](#infrastructure--core)
+        - [Developer Tools](#developer-tools)
+    - [Week 10 - Dia 3](#week-10---dia-3)
+    - [Week 11 - Día 1](#week-11---día-1)
+        - [Daily. Code Review (Week 11)](#daily-code-review-week-11)
+        - [Enrutamiento](#enrutamiento)
+    - [Week 11 - Dia 2: TODO List](#week-11---dia-2-todo-list)
+        - [Data](#data)
+            - [Data Model](#data-model)
+            - [Origen de los datos](#origen-de-los-datos)
+                - [Mock síncrono (constante / servicio)](#mock-síncrono-constante--servicio)
+                - [Mock de un servicio de datos asíncrono](#mock-de-un-servicio-de-datos-asíncrono)
+                - [Servicio de datos asíncrono desacoplado de localStorage](#servicio-de-datos-asíncrono-desacoplado-de-localstorage)
+            - [Componentes](#componentes)
+                - [Estado en el componente presentador](#estado-en-el-componente-presentador)
+                - [Carga inicial de los datos](#carga-inicial-de-los-datos)
+                - [Modificaciones del estado](#modificaciones-del-estado)
+                - [Paso de las funciones que modifican el estado](#paso-de-las-funciones-que-modifican-el-estado)
+                - [Componentes presentadores (1): Controles de formularios](#componentes-presentadores-1-controles-de-formularios)
+                - [Componentes presentadores (2): Datos finales en los formularios](#componentes-presentadores-2-datos-finales-en-los-formularios)
+                - [Componentes presentadores (3): Botones](#componentes-presentadores-3-botones)
+            - [Challenge: Formulario](#challenge-formulario)
+    - [Week 11 - Dia 3](#week-11---dia-3)
+        - [Daily. Code Review](#daily-code-review)
+        - [Testing](#testing)
+        - [Nueva feature: NotesList (CRUD)](#nueva-feature-noteslist-crud)
+        - [Datos desde un API](#datos-desde-un-api)
+            - [Data Repository](#data-repository)
+                - [Repository interface](#repository-interface)
+                - [NotesRepository](#notesrepository)
+                - [Errores en NotesRepository](#errores-en-notesrepository)
+            - [Custom Hook](#custom-hook)
+    - [Robots CRUD: Front completo React básico + API en JSON Server + Testing](#robots-crud-front-completo-react-básico--api-en-json-server--testing)
+    - [Redux](#redux)
+        - [Uso de redux - TODO List](#uso-de-redux---todo-list)
+        - [Testing Redux](#testing-redux)
 
-### Daily. Code Review
+## Week 10 - Día 1
+
+### Daily. Code Review (Week 10)
 
 ### Installation
 
@@ -22,9 +77,9 @@ No se pueden sobre-instalar
 
 ##### Prettier
 
-packaje.json
+package.json
 
-```
+```json
     "prettier": {
         "singleQuote": true
     }
@@ -32,7 +87,7 @@ packaje.json
 
 ##### .editorconfig
 
-```
+```txt
 root = true
 
 [*]
@@ -129,7 +184,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-#### NPM Scripts adicionales
+#### Custom NPM Scripts adicionales
 
 package.json
 
@@ -141,39 +196,39 @@ package.json
     },
 ```
 
-## Dia 2
+## Week 10 - Dia 2
 
--   Scaffolding: src - public. Index.ts. Client side render
--   Configuración TS… ESLint - Prettier. Ficheros tsx. CSS imports (Webpack)
--   Scripts de npm: Start: render local. Build. CI/CD. Test.
--   Componentes. JSX: template del componente. Expresiones JS {}. Fragments.
+- Scaffolding: src - public. Index.ts. Client side render
+- Configuración TS… ESLint - Prettier. Ficheros tsx. CSS imports (Webpack)
+- Scripts de npm: Start: render local. Build. CI/CD. Test.
+- Componentes. JSX: template del componente. Expresiones JS {}. Fragments.
 
 React. Conceptos.
 
--   modelo de datos
--   Renderización y virtual DOM
--   Estado e Inmutabilidad.
--   Hooks: useState
+- modelo de datos
+- Renderización y virtual DOM
+- Estado e Inmutabilidad.
+- Hooks: useState
 
 Header / Footer. Props
 
-## Estructura del proyecto
+### Estructura del proyecto
 
-### Features
+#### Features
 
-    - Home -> componente Auth para el login/logout del usuario basado en Auth0
-    - About -> página sin contenido
-    - Todo -> Demo del funcionamiento de React-redux con una TODO List
+- Home -> componente Auth para el login/logout del usuario basado en Auth0
+- About -> página sin contenido
+- Todo -> Demo del funcionamiento de React-redux con una TODO List
 
-### Infrastructure / Core
+#### Infrastructure / Core
 
-    - Componentes
-        - Layout, que consume Header, Footer y Menu
-        - App -> proporciona Layout al componente Routes
+- Componentes
+    - Layout, que consume Header, Footer y Menu
+    - App -> proporciona Layout al componente Routes
 
-#### Developer Tools
+### Developer Tools
 
-## Dia 3
+## Week 10 - Dia 3
 
 Menu: renderizado iterativo. Key.
 Composición de componentes: children… Layout
@@ -189,11 +244,9 @@ El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial.
 Multiples estados. Hook useEffect. Array de dependencias.
 Total clicks en la página. Estado en componente padre. Props funcionales
 
-# Frontend in React: week 11
+## Week 11 - Día 1
 
-## Día 1
-
-### Daily. Code Review
+### Daily. Code Review (Week 11)
 
 Se continua le proyecto anterior: ToDoList.
 Repaso - Layout del proyecto anterior. - Relaciones entre componentes. Uso de props… - Pages (default export)
@@ -204,29 +257,27 @@ Routing… Install react-router-dom
 Router: BrowserRouter v. MemoryRouter.
 Routes.
 
--   Definición de cada Route.
--   Route default.
--   Prueba de las urls. Links desde el menu
+- Definición de cada Route.
+- Route default.
+- Prueba de las urls. Links desde el menu
 
-    -   Componentes (Infrastructure / Core)
-        -   Routes -> Rutas publicas y privadas a las diferentes páginas usando Lazy Loading
-        -   PrivateRoute -> wrapper para crear las rutas privadas
+    - Componentes (Infrastructure / Core)
+        - Routes -> Rutas publicas y privadas a las diferentes páginas usando Lazy Loading
+        - PrivateRoute -> wrapper para crear las rutas privadas
 
 Pendiente: Lazy Loading. React suspense.
 
-## Dia 2
-
-## TODO List
+## Week 11 - Dia 2: TODO List
 
 ToDoList: Componentes (Add, List, Task) para el CRUD.
 
 Patrón controlador / presentadores.
 
--   Inicialmente datos y métodos pasados por props
-    -   Metodos por props en el formulario. Review conceptos de React. Funciones puras
--   Componente Add: formularios en React.
-    -   Estado local del formulario (siempre useState).
-    -   Validación nativa
+- Inicialmente datos y métodos pasados por props
+    - Metodos por props en el formulario. Review conceptos de React. Funciones puras
+- Componente Add: formularios en React.
+    - Estado local del formulario (siempre useState).
+    - Validación nativa
 
 ### Data
 
@@ -276,8 +327,8 @@ no exista el método getRandomValues en la clase Crypto
 
 Como primera aproximación se utiliza una fuente síncrona de los datos:
 
--   Mock de datos desde un array.
--   Una función (servicio) que se limita a retornar el array con los datos
+- Mock de datos desde un array.
+- Una función (servicio) que se limita a retornar el array con los datos
 
 ##### Mock de un servicio de datos asíncrono
 
@@ -410,12 +461,12 @@ const handleDelete = function (id: TaskStructure['id']) {
 
 Estas operaciones van a ser desencadenadas por:
 
--   la ejecución inicial del componente
--   distintos eventos de usuario producidos en los componentes 'presentadores'
+- la ejecución inicial del componente
+- distintos eventos de usuario producidos en los componentes 'presentadores'
 
 ##### Carga inicial de los datos
 
-Gracias al hoock useEffect, la función handleLoad se desencadena unicamnete
+Gracias al hook useEffect, la función handleLoad se desencadena únicamente
 cuando se crea la instancia del componente,
 al no haber en el array de dependencias ninguna que cambie con posterioridad
 
@@ -427,9 +478,9 @@ useEffect(() => {
 
 Todo el proceso de creación del componente tiene tres etapas
 
--   renderización inicial sin datos
--   carga de los datos
--   hidratación del componente con los datos y nueva renderización
+- renderización inicial sin datos
+- carga de los datos
+- hidratación del componente con los datos y nueva renderización
 
 Hasta alcanzar esta última etapa, es buena práctica renderizar de forma condicional
 algún feedback que le indique al usuario que se están cargando (Loading...) los datos
@@ -448,10 +499,10 @@ Como indicador del proceso de carga suelen utilizarse elementos gráficos tipo
 La relación entre los cambios de estado y la actualización persistente de los datos
 puede seguir básicamente dos patrones
 
--   enfoque optimista: cambia directamente el estado,
-    suponiendo que la actualización persistente no dara problemas.
+- enfoque optimista: cambia directamente el estado,
+    suponiendo que la actualización persistente no dará problemas.
     En caso contrario será necesario revertir el cambio de estado.
--   enfoque no optimista: espera a recibir confirmación
+- enfoque no optimista: espera a recibir confirmación
     del cambio en los datos persistentes, y sólo entonces modifica el estado
 
 En este caso, al ser la persistencia solamente local es más adecuado el primer enfoque.
@@ -601,7 +652,7 @@ const handleClick = () => {
 
 #### Challenge: Formulario
 
-## Dia 3
+## Week 11 - Dia 3
 
 ### Daily. Code Review
 
@@ -613,57 +664,167 @@ Componentes dinámicos: mock "handle" functions. Eventos: userEvent. Opciones de
 
 ### Nueva feature: NotesList (CRUD)
 
--   Feature/Page: nueva página con su test
--   App: nuevo item en la lista de MenuItems
--   Nueva ruta en AppRoutes / AppRutesLazy
--   Tests correspondientes a la nueva ruta
--   Modelo de datos y su test
--   Servicio mock de los datos y su test
--   Componentes con sus tests:
-    -   Add
-    -   Item
-    -   List
+- Feature/Page: nueva página con su test
+- App: nuevo item en la lista de MenuItems
+- Nueva ruta en AppRoutes / AppRutesLazy
+- Tests correspondientes a la nueva ruta
+- Modelo de datos y su test
+- Servicio mock de los datos y su test
+- Componentes con sus tests:
+    - Add
+    - Item
+    - List
 
 ### Datos desde un API
 
--   Server (JSON Server): EndPoint <http://localhost:3500/tasks> (from .env)
+- Server (JSON Server): EndPoint <http://localhost:3500/tasks> (from .env)
 
 #### Data Repository
 
--   Data Repository
-    Servicio de fetch de los datos (Similar al usado en componente vanila, sin clases)
+- Data Repository
+    Servicio de fetch de los datos (Similar al usado en componente vanilla, conn clases)
 
--   Abstract repository interface -> use of TS generic
--   TaskRepository -> class implementing the interface
+##### Repository interface
+
+Abstract repository interface -> use of TS generic
+
+```ts
+export interface Repository<T> {
+    load: () => Promise<T[]>;
+    // como alternativa, load puede denominarse search
+    queryId: (id: string) => Promise<T>;
+    // No se incluye una query potencialmente más genérica query: ({ id }: { id: string }) => Promise<T>;
+    create: (payload: Partial<T>) => Promise<T>;
+    update: (payload: Partial<T>) => Promise<T>;
+    delete: (id: string) => Promise<string>;
+}
+```
+
+##### NotesRepository
+
+Class implementando el interface
+El constructor recibe la url de la API que se utiliza, o emplea el valor por defecto definido
+Cada método de la clase encapsula una operación **fetch** con uno de los métodos Http, de acuerdo con el estándar REST
+
+- load / queryId (Read) -> HTTP GET
+- create -> HTTP POST
+- update -> HTTP PATCH
+- delete -> HTTP DELETE
+
+Fetch devuelve una promesa que una vez resuelta proporciona en objeto **Response**
+
+En el existe la propiedad **ok**, que vale true para las respuestas http de status 2xx.
+
+En las respuestas **NO OK** se genera un error, reject de la promesa.
+
+En las respuestas OK, se procesa el body mediante el método json del objeto response y se devuelve la nueva promesa con los datos contenidos.
+
+Este procedimiento puede llevarse a cabo con then/catch o utilizando async/await
+
+```ts
+    load(): Promise<NoteStructure[]> {
+        return fetch(this.url).then((resp) => {
+            if (!resp.ok)
+                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+            return resp.json();
+        });
+    }
+```
+
+```ts
+    async create(payload: Partial<NoteStructure>): Promise<NoteStructure> {
+        const resp = await fetch(this.url, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-type': 'application/json',
+            },
+        });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
+    }
+```
+
+En los casos en que existe body (POST/PATCH) es necesario darle valor de forma serializada (string JSON generado mediante JSON.stringify) e indicar en las cabeceras HTTP el tipo del contenido: 'Content-type': 'application/json'
+
+```ts
+async update(payload: Partial<NoteStructure>): Promise<NoteStructure> {
+    if (!payload.id) return Promise.reject(invalidIdError);
+    const resp = await fetch(this.url + payload.id, {
+        method: 'PATCH',
+        body: JSON.stringify(payload),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    });
+    if (!resp.ok)
+        throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+    return await resp.json();
+}
+```
+
+En el caso del delete, el API de JSON-server devuelve siempre un objeto vacío, por lo que no aporta nada procesar el contenido del body.
+La opción que hemos empleado es devolver el id del item en caso de que haya sido borrado.
+
+```ts
+ async delete(id: NoteStructure['id']): Promise<NoteStructure['id']> {
+    if (!id) return Promise.reject(invalidIdError);
+    const resp = await fetch(this.url + id, {
+        method: 'DELETE',
+    });
+    if (!resp.ok)
+        throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+    return id;
+}
+```
+
+##### Errores en NotesRepository
+
+Los errores en el repository representan dos posibles situaciones
+
+- fetch genera un error, generalmente porque la conexión no a sido posible
+
+- nuestro código genera un error cuando la respuesta al fetch viene marcada como ok: false (códigos HTTP 4xx, 5xx ...)
+
+En este segundo caso de crea el mensaje de error
+
+```ts
+`Error ${resp.status}: ${resp.statusText}`;
+```
+
+En consecuencia siempre que se usen los metodos del repo debe ser en una estructura try/catch que gestione los posibles errores para proporcionarle el feedback adecuado al usuario
+
+#### Custom Hook
 
 ---
 
 ## Robots CRUD: Front completo React básico + API en JSON Server + Testing
 
-# Redux
+## Redux
 
-## Uso de redux - TODO List
+### Uso de redux - TODO List
 
--   action.types -> object / enum
+- action.types -> object / enum
 
--   action.creators -> createAction (RTK)
--   reducer -> createReducer (RTK)
--   (ALT) -> slice (RTK)
+- action.creators -> createAction (RTK)
+- reducer -> createReducer (RTK)
+- (ALT) -> slice (RTK)
 
--   test del reducer
+- test del reducer
 
--   modelo de datos -> type / interface / class
--   store -> configureStore (RTK) + types
--   provider -> Provider (react-redux)
+- modelo de datos -> type / interface / class
+- store -> configureStore (RTK) + types
+- provider -> Provider (react-redux)
 
--   componente (view)
+- componente (view)
 
-    -   useSelector() (react-redux)
-        useSelector((state: rootState ) => state.<branch>)
-    -   useDispatch() (react-redux)
+    - useSelector() (react-redux)
+        useSelector((state: rootState ) => state.`branch`)
+    - useDispatch() (react-redux)
 
-    -   ¿Integramos servicioAPI?
-        -   como servicio externo
-        -   como thunk
+    - ¿Integramos servicioAPI?
+        - como servicio externo
+        - como thunk
 
-## Testing Redux
+### Testing Redux
