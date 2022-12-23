@@ -8,58 +8,53 @@ export class NotesRepo implements Repository<NoteStructure> {
         //
     }
 
-    load(): Promise<NoteStructure[]> {
-        return fetch(this.url).then((resp) => {
-            if (!resp.ok)
-                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-            return resp.json();
-        });
+    async load(): Promise<NoteStructure[]> {
+        const resp = await fetch(this.url);
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
     }
-    queryId(id: string): Promise<NoteStructure> {
+    async queryId(id: string): Promise<NoteStructure> {
         if (!id || typeof id !== 'string')
             return Promise.reject(invalidIdError);
-        return fetch(this.url + id).then((resp) => {
-            if (!resp.ok)
-                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-            return resp.json();
-        });
+        const resp = await fetch(this.url + id);
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
     }
 
-    create(payload: Partial<NoteStructure>): Promise<NoteStructure> {
-        return fetch(this.url, {
+    async create(payload: Partial<NoteStructure>): Promise<NoteStructure> {
+        const resp = await fetch(this.url, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
                 'Content-type': 'application/json',
             },
-        }).then((resp) => {
-            if (!resp.ok)
-                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-            return resp.json();
         });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
     }
-    update(payload: Partial<NoteStructure>): Promise<NoteStructure> {
+    async update(payload: Partial<NoteStructure>): Promise<NoteStructure> {
         if (!payload.id) return Promise.reject(invalidIdError);
-        return fetch(this.url + payload.id, {
+        const resp = await fetch(this.url + payload.id, {
             method: 'PATCH',
             body: JSON.stringify(payload),
             headers: {
                 'Content-type': 'application/json',
             },
-        }).then((resp) => {
-            if (!resp.ok)
-                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-            return resp.json();
         });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return await resp.json();
     }
-    delete(id: NoteStructure['id']): Promise<NoteStructure['id']> {
+    async delete(id: NoteStructure['id']): Promise<NoteStructure['id']> {
         if (!id) return Promise.reject(invalidIdError);
-        return fetch(this.url + id, {
+        const resp = await fetch(this.url + id, {
             method: 'DELETE',
-        }).then((resp) => {
-            if (!resp.ok)
-                throw new Error(`Error ${resp.status}: ${resp.statusText}`);
-            return id;
         });
+        if (!resp.ok)
+            throw new Error(`Error ${resp.status}: ${resp.statusText}`);
+        return id;
     }
 }
