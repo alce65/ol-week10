@@ -1,4 +1,4 @@
-import { renderHook, RenderHookResult, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { Note } from '../models/note';
 import { NotesRepo } from '../services/repository/notes.repo';
@@ -57,7 +57,8 @@ describe(`Given useNotes (custom hook)
             });
             expect(NotesRepo.prototype.load).toHaveBeenCalled();
             expect(spyConsole).toBeCalledWith('LOAD Notes');
-            // Problema
+            // PROBLEMA: el expect no se cumple
+            // porque de re-renderiza el hook con el estado inicial []
             // await waitFor(async () => {
             // expect(current.getNotes()).toEqual(mockNotes);
             // });
@@ -67,7 +68,8 @@ describe(`Given useNotes (custom hook)
                 current.handleAdd(mockAddNote);
             });
             expect(NotesRepo.prototype.create).toHaveBeenCalled();
-            // PROBLEMA
+            // PROBLEMA: el expect no se cumple
+            // porque de re-renderiza el hook con el estado inicial []
             // expect(current.getNotes()).toEqual([mockAddNote]);
         });
 
