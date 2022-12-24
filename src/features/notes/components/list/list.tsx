@@ -8,25 +8,25 @@ export function List() {
     const { getNotes, handleLoad, handleAdd, handleDelete, handleUpdate } =
         useNotes();
 
-    const [notes, setNotes] = useState(getNotes());
+    // const [notes, setNotes] = useState(getNotes());
 
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
 
-    useEffect(() => {
-        setNotes(getNotes());
-    }, [getNotes]);
+    // useEffect(() => {
+    //     setNotes(getNotes());
+    // }, [getNotes]);
 
     return (
         <>
             <Add handleAdd={handleAdd}></Add>
             <h3>Lista de notas</h3>
-            {!notes.length ? (
+            {!getNotes().length ? (
                 <p>Loading ....</p>
             ) : (
                 <ul className="note-list">
-                    {notes.map((item) => {
+                    {getNotes().map((item) => {
                         return (
                             <li key={item.id}>
                                 <Item
