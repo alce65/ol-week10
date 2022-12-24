@@ -852,8 +852,17 @@ Un primer paso para reducir la complejidad del componente controlador
 es trasladar la lógica del estado a un **custom hook**.
 El segundo paso, se verá mas adelante, es que el estado resida en un **contexto**.
 
-El primero de estos pasos aislado, solo se usa por motivos didácticos 
-pero NO resulta una situación adecuada ... 
+El primero de estos pasos aislado, solo se usa por motivos didácticos,
+pero NO resulta una situación adecuada porque los custom hooks **No reutilizan la lógica de estado**:
+en cada llamada al hook se obtiene un `estado completamente aislado.`
+
+Al usar un custom hook, es componente se comporta como si las llamadas a useState o useEffect estuvieran en el mismo.  
+
+> Do two components using the same Hook share state? No. Custom Hooks are a mechanism to reuse stateful logic (such as setting up a subscription and remembering the current value), but every time you use a custom Hook, all state and effects inside of it are fully isolated.
+>
+> How does a custom Hook get isolated state? Each call to a Hook gets isolated state. Because we call useFriendStatus directly, from React’s point of view our component just calls useState and useEffect. And as we learned earlier, we can call useState and useEffect many times in one component, and they will be completely independent.
+>
+>[React Hooks-custom](https://reactjs.org/docs/hooks-custom.html)
 
 En cualquier caso, el hook será ahora el que
 
