@@ -923,7 +923,7 @@ El mismo patrón se utiliza en el **useMemo** para el caso de las instancias de 
 El componente List queda simplificado al hacer uso del hook
 
 ```ts
- const { notes, handleLoad, handleAdd, handleDelete, handleUpdate } =
+const { notes, handleLoad, handleAdd, handleDelete, handleUpdate } =
         useNotes();
 
     useEffect(() => {
@@ -936,9 +936,9 @@ El componente List queda simplificado al hacer uso del hook
 Igual que anteriormente
 
 - `handleAdd`, `handleDelete`, `handleUpdate` pasan por props
-  a los componentes presentadores (Add e Item)
+    a los componentes presentadores (Add e Item)
 - la iteración sobre el array `notes` de lugar a las instancias
-  del componente Item
+    del componente Item
 
 ```tsx
 <Add handleAdd={handleAdd}></Add>
