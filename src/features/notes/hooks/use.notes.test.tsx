@@ -56,6 +56,7 @@ describe(`Given useNotes (custom hook)
             expect(NotesRepo.prototype.load).toHaveBeenCalled();
         });
         test('Then its function handleAdd should be used', async () => {
+            // Antes de usar custom hooks se testaba en el componente
             // const button = screen.getByRole('button');
             // userEvent.click(button);
             // const addItem = await screen.findByText(/Added note/i);

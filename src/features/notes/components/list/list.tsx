@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNotes } from '../../hooks/use.notes';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
@@ -8,15 +8,9 @@ export function List() {
     const { getNotes, handleLoad, handleAdd, handleDelete, handleUpdate } =
         useNotes();
 
-    // const [notes, setNotes] = useState(getNotes());
-
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);
-
-    // useEffect(() => {
-    //     setNotes(getNotes());
-    // }, [getNotes]);
 
     return (
         <>

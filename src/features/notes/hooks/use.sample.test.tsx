@@ -1,9 +1,4 @@
-import {
-    waitFor,
-    act,
-    renderHook,
-    RenderHookResult,
-} from '@testing-library/react';
+import { renderHook, RenderHookResult } from '@testing-library/react';
 import { Note } from '../models/note';
 import { UseNotes, useSample } from './use.sample';
 
@@ -11,7 +6,6 @@ describe('Given useSample (custom hook)', () => {
     const mockNote = new Note('Test note', 'Test user');
     describe('When it is render with a virtual component', () => {
         let view: RenderHookResult<UseNotes, undefined>;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         let current: UseNotes;
         beforeEach(() => {
             view = renderHook(() => {
