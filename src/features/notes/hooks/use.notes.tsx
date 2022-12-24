@@ -5,10 +5,10 @@ import { NotesRepo } from '../services/repository/notes.repo';
 
 export type UseNotes = {
     getNotes: () => Array<NoteStructure>;
-    handleLoad: () => void;
-    handleAdd: (note: NoteNoId) => void;
-    handleUpdate: (notePayload: Partial<NoteStructure>) => void;
-    handleDelete: (id: NoteStructure['id']) => void;
+    handleLoad: () => Promise<void>;
+    handleAdd: (note: NoteNoId) => Promise<void>;
+    handleUpdate: (notePayload: Partial<NoteStructure>) => Promise<void>;
+    handleDelete: (id: NoteStructure['id']) => Promise<void>;
 };
 
 export function useNotes(): UseNotes {
@@ -17,6 +17,8 @@ export function useNotes(): UseNotes {
     const initialState: Array<NoteStructure> = [];
 
     const [notes, setNotes] = useState(initialState);
+
+    const getNotes = () => notes;
 
     const handleLoad = useCallback(async () => {
         try {
@@ -31,6 +33,7 @@ export function useNotes(): UseNotes {
     const handleAdd = async function (note: NoteNoId) {
         try {
             const fullNote = await repo.create(note);
+            console.log({ fullNote });
             setNotes([...notes, fullNote]);
         } catch (error) {
             handleError(error as Error);
@@ -60,8 +63,6 @@ export function useNotes(): UseNotes {
     const handleError = (error: Error) => {
         consoleDebug(error.message);
     };
-
-    const getNotes = () => notes;
 
     return {
         getNotes,
