@@ -1,4 +1,9 @@
 // Se puede usar type, interface o class
+export type NoteNoId = {
+    title: string;
+    author: string;
+    isImportant: boolean;
+};
 
 export type NoteStructure = {
     id: string;
@@ -17,6 +22,13 @@ export class Note implements NoteStructure {
     isImportant: boolean;
     constructor(public title: string, public author: string) {
         this.id = Note.generateId();
+        this.isImportant = false;
+    }
+}
+
+export class NoteLite implements NoteNoId {
+    isImportant: boolean;
+    constructor(public title: string, public author: string) {
         this.isImportant = false;
     }
 }
