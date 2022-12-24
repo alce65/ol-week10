@@ -14,8 +14,8 @@ export type UseNotes = {
 export function useNotes(): UseNotes {
     const repo = useMemo(() => new NotesRepo(), []);
     consoleDebug('useNotes Instance');
-    const initialState: Array<NoteStructure> = [];
 
+    const initialState: Array<NoteStructure> = [];
     const [notes, setNotes] = useState(initialState);
 
     const getNotes = () => notes;
@@ -29,6 +29,16 @@ export function useNotes(): UseNotes {
             handleError(error as Error);
         }
     }, [repo]);
+
+    // Se podrían escribir versiones asíncronas de todos los handlers
+    // const handleLoad = useCallback(() => {
+    //     repo.load()
+    //         .then((data) => {
+    //             setNotes(data);
+    //             consoleDebug('LOAD Notes');
+    //         })
+    //         .catch((error) => handleError(error as Error));
+    // }, [repo]);
 
     const handleAdd = async function (note: NoteNoId) {
         try {

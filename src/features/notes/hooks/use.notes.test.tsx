@@ -1,4 +1,4 @@
-import { renderHook, RenderHookResult } from '@testing-library/react';
+import { renderHook, RenderHookResult, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { Note } from '../models/note';
 import { NotesRepo } from '../services/repository/notes.repo';
@@ -23,14 +23,14 @@ NotesRepo.prototype.delete = jest.fn();
 
 describe(`Given useNotes (custom hook)
             render with a virtual component`, () => {
-    let view: RenderHookResult<UseNotes, unknown>;
     let current: UseNotes;
     let spyConsole: jest.SpyInstance;
     beforeEach(() => {
-        view = renderHook(() => {
+        ({
+            result: { current },
+        } = renderHook(() => {
             return useNotes();
-        });
-        current = view.result.current;
+        }));
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
     describe(`When the repo io working OK`, () => {
@@ -58,7 +58,9 @@ describe(`Given useNotes (custom hook)
             expect(NotesRepo.prototype.load).toHaveBeenCalled();
             expect(spyConsole).toBeCalledWith('LOAD Notes');
             // Problema
+            // await waitFor(async () => {
             // expect(current.getNotes()).toEqual(mockNotes);
+            // });
         });
         test('Then its function handleAdd should be used', async () => {
             await act(async () => {
