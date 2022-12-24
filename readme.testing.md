@@ -393,7 +393,7 @@ Al testarlo se creará un **mock** del método fetch provisto por la correspondi
 A nivel de testing (Jest se ejecuta en Node) se accede al método en el objeto **global**
 
 ```ts
- global.fetch = jest.fn()
+global.fetch = jest.fn()
 ```
 
 Los distintos casos de uso dependen de las implementaciones del mock de fetch
@@ -416,7 +416,7 @@ global.fetch = jest.fn().mockResolvedValue({
 ```
 
 ```ts
-  global.fetch = jest.fn().mockResolvedValue({
+global.fetch = jest.fn().mockResolvedValue({
     ok: false,
     status: 404,
     statusText: 'Not Found',

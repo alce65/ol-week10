@@ -768,7 +768,7 @@ En el caso del delete, el API de JSON-server devuelve siempre un objeto vacío, 
 La opción que hemos empleado es devolver el id del item en caso de que haya sido borrado.
 
 ```ts
- async delete(id: NoteStructure['id']): Promise<NoteStructure['id']> {
+async delete(id: NoteStructure['id']): Promise<NoteStructure['id']> {
     if (!id) return Promise.reject(invalidIdError);
     const resp = await fetch(this.url + id, {
         method: 'DELETE',
@@ -795,7 +795,172 @@ En este segundo caso de crea el mensaje de error
 
 En consecuencia siempre que se usen los metodos del repo debe ser en una estructura try/catch que gestione los posibles errores para proporcionarle el feedback adecuado al usuario
 
+#### DataModel: ids
+
+Al utilizar datos procedentes de un API es posible que el id de cada item
+sea generado tanto en el back como en el front. 
+Con JSON-server se da el primero de los casos
+
+Puede ser util definir interfaces del modelo de datos con y sin id
+
+```ts
+export type NoteNoId = {
+    title: string;
+    author: string;
+    isImportant: boolean;
+};
+
+export type NoteStructure = {
+    id: string;
+    title: string;
+    author: string;
+    isImportant: boolean;
+};
+```
+
+Si existen clases constructoras, será util disponer también de ls dos posibilidades
+
+```ts
+export class Note implements NoteStructure {
+    static generateId() {
+        const aNumbers = new Uint32Array(1);
+        window.crypto?.getRandomValues(aNumbers);
+        return ('000000' + aNumbers[0]).slice(-6);
+    }
+    id: string;
+    isImportant: boolean;
+    constructor(public title: string, public author: string) {
+        this.id = Note.generateId();
+        this.isImportant = false;
+    }
+}
+
+export class NoteLite implements NoteNoId {
+    isImportant: boolean;
+    constructor(public title: string, public author: string) {
+        this.isImportant = false;
+    }
+}
+```
+
 #### Custom Hook
+
+En el patrón controlador/presentadores, toda la **lógica del estado**
+reside en el componente controlador (List)
+
+Un primer paso para reducir la complejidad del componente controlador
+es trasladar la lógica del estado a un **custom hook**.
+El segundo paso, se verá mas adelante, es que el estado resida en un **contexto**.
+
+El primero de estos pasos aislado, solo se usa por motivos didácticos 
+pero NO resulta una situación adecuada ... 
+
+En cualquier caso, el hook será ahora el que
+
+- instancia el servicio repository
+- define el estado y su valor inicial
+- define los métodos que lo manejan
+- devuelve un objeto con el estado y sus métodos 
+
+```ts
+export function useNotes(): UseNotes {
+
+    const repo = useMemo(() => new NotesRepo(), []);
+    
+    const initialState: Array<NoteStructure> = [];
+
+    const [notes, setNotes] = useState(initialState);
+
+    const handleLoad = useCallback(async () => {
+        //...
+    }, [repo]);
+
+    const handleAdd = async function (note: NoteNoId) {
+        //...
+    };
+
+    const handleUpdate = async function (notePayload: Partial<NoteStructure>) {
+        //...
+    };
+
+    const handleDelete = async function (id: NoteStructure['id']) {
+        //...
+    };
+
+    return {
+        notes,
+        handleLoad,
+        handleAdd,
+        handleUpdate,
+        handleDelete,
+    };
+}
+```
+
+En ellos se aplica la estrategia no-optimista de
+esperar los resultados de la llamada al API antes de actualizar el estado
+
+```ts
+const handleLoad = useCallback(async () => {
+    try {
+        const data = await repo.load();
+        setNotes(data);
+        consoleDebug('LOAD');
+    } catch (error) {
+        handleError(error as Error);
+    }
+}, [repo])
+```
+
+En el caso del handleLoad, que sera incluido en el array de dependencias
+del useEffect del componente que lo use se emplea 
+el **patrón memoización** (memoization or memoisation) mediante el **useCallback**,
+almacenando la instancia de la función la primera vez que es llamada
+para evitar reinstanciarla en llamadas sucesivas.
+
+El mismo patrón se utiliza en el **useMemo** para el caso de las instancias de objetos
+
+El componente List queda simplificado al hacer uso del hook
+
+```ts
+ const { notes, handleLoad, handleAdd, handleDelete, handleUpdate } =
+        useNotes();
+
+    useEffect(() => {
+        handleLoad();
+    }, [handleLoad]);
+
+}
+```
+
+Igual que anteriormente
+
+- `handleAdd`, `handleDelete`, `handleUpdate` pasan por props
+  a los componentes presentadores (Add e Item)
+- la iteración sobre el array `notes` de lugar a las instancias
+  del componente Item
+
+```tsx
+<Add handleAdd={handleAdd}></Add>
+<h3>Lista de notas</h3>
+{!notes.length ? (
+    <p>Loading ....</p>
+) : (
+    <ul className="note-list">
+        {notes.map((item) => {
+            return (
+                <li key={item.id}>
+                    <Item
+                        item={item}
+                        handleUpdate={handleUpdate}
+                        handleDelete={handleDelete}
+                    ></Item>
+                </li>
+            );
+        })}
+    </ul>
+)}
+```
 
 ---
 
