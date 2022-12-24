@@ -1,34 +1,30 @@
 import {
-    render,
-    screen,
     waitFor,
     act,
     renderHook,
     RenderHookResult,
 } from '@testing-library/react';
-import { NoteStructure } from '../models/note';
-import { useSample } from './use.sample';
-
-type UseNotes = {
-    notes: Array<NoteStructure>;
-};
+import { Note } from '../models/note';
+import { UseNotes, useSample } from './use.sample';
 
 describe('Given useSample (custom hook)', () => {
+    const mockNote = new Note('Test note', 'Test user');
     describe('When it is render with a virtual component', () => {
-        let view: RenderHookResult<UseNotes, unknown>;
+        let view: RenderHookResult<UseNotes, undefined>;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         let current: UseNotes;
         beforeEach(() => {
             view = renderHook(() => {
-                return useSample([]);
+                return useSample();
             });
             current = view.result.current;
         });
-        test('Then its data should be used', () => {
-            expect(current.notes).toEqual([]);
+        test('Then its data should be get', () => {
+            expect(current.getNotes()).toEqual([]);
         });
-        test('Then its functions should be used', () => {
-            //
+        test('Then its function setNotes should be used for set the data', () => {
+            current.setNotes([mockNote]);
+            expect(current.getNotes()).toEqual([mockNote]);
         });
     });
 });
