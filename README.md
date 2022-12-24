@@ -1,7 +1,7 @@
 # Frontend in React
 
 - [Frontend in React](#frontend-in-react)
-    - [Week 10 - Día 1](#week-10---día-1)
+    - [Week 10 - Día 1. Instalación](#week-10---día-1-instalación)
         - [Daily. Code Review (Week 10)](#daily-code-review-week-10)
         - [Installation](#installation)
             - [EditorConfig / Prettier](#editorconfig--prettier)
@@ -15,12 +15,17 @@
                 - [`npm run build`](#npm-run-build)
                 - [`npm run eject`](#npm-run-eject)
             - [Custom NPM Scripts adicionales](#custom-npm-scripts-adicionales)
-    - [Week 10 - Dia 2](#week-10---dia-2)
+    - [Week 10 - Dia 2. Proyecto inicial. Componentes 'estáticos'](#week-10---dia-2-proyecto-inicial-componentes-estáticos)
         - [Estructura del proyecto](#estructura-del-proyecto)
             - [Features](#features)
             - [Infrastructure / Core](#infrastructure--core)
         - [Developer Tools](#developer-tools)
-    - [Week 10 - Dia 3](#week-10---dia-3)
+    - [Week 10 - Dia 3. React básico. Estado](#week-10---dia-3-react-básico-estado)
+        - [Estado. Hook useState](#estado-hook-usestate)
+            - [Tipo del estado: valor inicial](#tipo-del-estado-valor-inicial)
+            - [Objetos como estado v multiples estados](#objetos-como-estado-v-multiples-estados)
+        - [Hook useEffect](#hook-useeffect)
+        - [Estado en componente padre](#estado-en-componente-padre)
     - [Week 11 - Día 1](#week-11---día-1)
         - [Daily. Code Review (Week 11)](#daily-code-review-week-11)
         - [Enrutamiento](#enrutamiento)
@@ -49,13 +54,14 @@
                 - [Repository interface](#repository-interface)
                 - [NotesRepository](#notesrepository)
                 - [Errores en NotesRepository](#errores-en-notesrepository)
+            - [DataModel: ids](#datamodel-ids)
             - [Custom Hook](#custom-hook)
     - [Robots CRUD: Front completo React básico + API en JSON Server + Testing](#robots-crud-front-completo-react-básico--api-en-json-server--testing)
     - [Redux](#redux)
         - [Uso de redux - TODO List](#uso-de-redux---todo-list)
         - [Testing Redux](#testing-redux)
 
-## Week 10 - Día 1
+## Week 10 - Día 1. Instalación
 
 ### Daily. Code Review (Week 10)
 
@@ -196,7 +202,7 @@ package.json
     },
 ```
 
-## Week 10 - Dia 2
+## Week 10 - Dia 2. Proyecto inicial. Componentes 'estáticos'
 
 - Scaffolding: src - public. Index.ts. Client side render
 - Configuración TS… ESLint - Prettier. Ficheros tsx. CSS imports (Webpack)
@@ -208,7 +214,7 @@ React. Conceptos.
 - modelo de datos
 - Renderización y virtual DOM
 - Estado e Inmutabilidad.
-- Hooks: useState
+- Hooks: useState, useEffect...
 
 Header / Footer. Props
 
@@ -228,7 +234,7 @@ Header / Footer. Props
 
 ### Developer Tools
 
-## Week 10 - Dia 3
+## Week 10 - Dia 3. React básico. Estado
 
 Menu: renderizado iterativo. Key.
 Composición de componentes: children… Layout
@@ -238,11 +244,41 @@ Conditional render: operadores.
 
 Páginas. Estructura de carpetas.
 
-Componente contador. Eventos… Paso de parámetros. Estado. Hook useState. Opciones en el setter
+Componente contador. Eventos… Paso de parámetros. 
 
-El estado como objeto: counter + counter clicks. Tipo del estado: valor inicial. Inmutabilidad.
-Multiples estados. Hook useEffect. Array de dependencias.
-Total clicks en la página. Estado en componente padre. Props funcionales
+### Estado. Hook useState
+
+Con el hook **useState** añadimos al componente un estado local que React conservará entre sucesivos renderizados
+
+useState devuelve un array de 2 elementos que desestructuramos como dos variables:
+
+- el **estado**: un getter que nunca se modificará directamente
+- la función **setter** responsable de cualquier cambio en el estado
+
+Opciones en el setter
+
+#### Tipo del estado: valor inicial
+
+El único argumento de useState es el estado inicial.
+Su tipo define el tipo del estado, por lo que debe definirse con precisión
+
+#### Objetos como estado v multiples estados
+
+El estado como objeto: counter + counter clicks.
+Inmutabilidad.
+Multiples estados.
+
+### Hook useEffect
+
+Los efectos secundarios (“side effects” o “effects”) son las operaciones que pueden afectar a otros componentes y no pueden llevarse a cabo durante el renderizado.
+
+En react se desencadenan mediante el hook **useEffect**
+
+Array de dependencias.
+
+### Estado en componente padre
+
+Total clicks en la página. Props funcionales
 
 ## Week 11 - Día 1
 
