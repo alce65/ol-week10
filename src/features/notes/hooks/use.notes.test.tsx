@@ -1,20 +1,17 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import { Note } from '../models/note';
+import {
+    mockNote2,
+    mockAddNote,
+    mockUpdateNote,
+    mockValidRepoResponse,
+    mockNoValidRepoResponse,
+} from './testing.mock';
 import { NotesRepo } from '../services/repository/notes.repo';
 import { UseNotes, useNotes } from './use.notes';
 import * as debug from '../../../tools/debug';
 
 jest.mock('../services/repository/notes.repo');
-
-const mockNote1 = new Note('Test note 1', 'user');
-mockNote1.id = '000001';
-const mockNote2 = new Note('Test note 2', 'user');
-mockNote2.id = '000002';
-const mockNotes = [mockNote1, mockNote2];
-const mockAddNote = new Note('Added note', 'user');
-mockAddNote.id = '000003';
-const mockUpdateNote = { ...mockNote2, title: 'Update note' };
 
 NotesRepo.prototype.load = jest.fn();
 NotesRepo.prototype.create = jest.fn();
@@ -34,20 +31,7 @@ describe(`Given useNotes (custom hook)
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
     describe(`When the repo io working OK`, () => {
-        beforeEach(() => {
-            (NotesRepo.prototype.load as jest.Mock).mockResolvedValue(
-                mockNotes
-            );
-            (NotesRepo.prototype.create as jest.Mock).mockResolvedValue(
-                mockAddNote
-            );
-            (NotesRepo.prototype.update as jest.Mock).mockResolvedValue(
-                mockUpdateNote
-            );
-            (NotesRepo.prototype.delete as jest.Mock).mockResolvedValue(
-                mockNote1.id
-            );
-        });
+        beforeEach(mockValidRepoResponse);
         test('Then its data should be accesible starting empty', () => {
             expect(current.getNotes()).toEqual([]);
         });
@@ -97,42 +81,36 @@ describe(`Given useNotes (custom hook)
         });
     });
     describe(`When the repo is NOT working OK`, () => {
-        const error = new Error('');
-        beforeEach(() => {
-            (NotesRepo.prototype.load as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.create as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.update as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.delete as jest.Mock).mockRejectedValue(error);
-        });
+        beforeEach(mockNoValidRepoResponse);
         test('Then its function handleLoad should be used', async () => {
             await act(async () => {
                 current.handleLoad();
             });
             expect(NotesRepo.prototype.load).toHaveBeenCalled();
-            expect(spyConsole).toBeCalled();
+            expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
         });
         test('Then its function handleAdd should be used', async () => {
             await act(async () => {
                 current.handleAdd(mockAddNote);
             });
             expect(NotesRepo.prototype.create).toHaveBeenCalled();
-            expect(spyConsole).toBeCalled();
+            expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
         });
 
         test('Then its function handleUpdate should be used', async () => {
             await act(async () => {
-                current.handleUpdate(mockAddNote);
+                current.handleUpdate(mockUpdateNote);
             });
             expect(NotesRepo.prototype.update).toHaveBeenCalled();
-            expect(spyConsole).toBeCalled();
+            expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
         });
 
         test('Then its function handleDelete should be used', async () => {
             await act(async () => {
-                current.handleDelete(mockAddNote.id);
+                current.handleDelete(mockNote2.id);
             });
             expect(NotesRepo.prototype.delete).toHaveBeenCalled();
-            expect(spyConsole).toBeCalled();
+            expect(spyConsole).toHaveBeenLastCalledWith('Testing errors');
         });
     });
 });
