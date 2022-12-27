@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { consoleDebug } from '../../../../tools/debug';
 import './counter.css';
 export function Counter({ setTotal }: { setTotal: () => void }) {
+    consoleDebug('Running Counter and render it');
     // Esta sería la variable al margen del state:
     // let count = 0
 
