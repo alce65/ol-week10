@@ -1,21 +1,20 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Note } from '../models/note';
+import {
+    mockNote1,
+    mockNote2,
+    mockAddNote,
+    mockUpdateNote,
+    mockValidRepoResponse,
+    mockNoValidRepoResponse,
+} from './testing.mock';
+
 import { NotesRepo } from '../services/repository/notes.repo';
 import { useNotes } from './use.notes';
 import * as debug from '../../../tools/debug';
 
 jest.mock('../services/repository/notes.repo');
-
-const mockNote1 = new Note('Test note 1', 'user');
-mockNote1.id = '000001';
-const mockNote2 = new Note('Test note 2', 'user');
-mockNote2.id = '000002';
-const mockNotes = [mockNote1, mockNote2];
-const mockAddNote = new Note('Added note', 'user');
-mockAddNote.id = '000003';
-const mockUpdateNote = { ...mockNote2, title: 'Update note' };
 
 NotesRepo.prototype.load = jest.fn();
 NotesRepo.prototype.create = jest.fn();
@@ -67,20 +66,7 @@ describe(`Given useNotes (custom hook)
         spyConsole = jest.spyOn(debug, 'consoleDebug');
     });
     describe(`When the repo is working OK`, () => {
-        beforeEach(() => {
-            (NotesRepo.prototype.load as jest.Mock).mockResolvedValue(
-                mockNotes
-            );
-            (NotesRepo.prototype.create as jest.Mock).mockResolvedValue(
-                mockAddNote
-            );
-            (NotesRepo.prototype.update as jest.Mock).mockResolvedValue(
-                mockUpdateNote
-            );
-            (NotesRepo.prototype.delete as jest.Mock).mockResolvedValue(
-                mockNote1.id
-            );
-        });
+        beforeEach(mockValidRepoResponse);
 
         test('Then its function handleLoad should be add notes to the state', async () => {
             expect(await screen.findByText(/loading/i)).toBeInTheDocument();
@@ -125,17 +111,10 @@ describe(`Given useNotes (custom hook)
             await expect(
                 async () => await screen.findByText(mockNote1.title)
             ).rejects.toThrowError();
-            //not.toBeInTheDocument();
         });
     });
     describe(`When the repo is NOT working OK`, () => {
-        const error = new Error('Testing errors');
-        beforeEach(() => {
-            (NotesRepo.prototype.load as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.create as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.update as jest.Mock).mockRejectedValue(error);
-            (NotesRepo.prototype.delete as jest.Mock).mockRejectedValue(error);
-        });
+        beforeEach(mockNoValidRepoResponse);
         test('Then its function handleLoad should be used', async () => {
             userEvent.click(buttons[0]);
             expect(NotesRepo.prototype.load).toHaveBeenCalled();
@@ -144,7 +123,6 @@ describe(`Given useNotes (custom hook)
             });
         });
         test('Then its function handleAdd should be used', async () => {
-            // userEvent.click(buttons[0]);
             userEvent.click(buttons[1]);
             expect(NotesRepo.prototype.create).toHaveBeenCalled();
             await waitFor(() => {
