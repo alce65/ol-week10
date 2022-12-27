@@ -121,7 +121,7 @@ describe(`Given useNotes (custom hook)
 
         test('Then its function handleUpdate should be used', async () => {
             await act(async () => {
-                current.handleUpdate(mockAddNote);
+                current.handleUpdate(mockUpdateNote);
             });
             expect(NotesRepo.prototype.update).toHaveBeenCalled();
             expect(spyConsole).toBeCalled();
@@ -129,7 +129,7 @@ describe(`Given useNotes (custom hook)
 
         test('Then its function handleDelete should be used', async () => {
             await act(async () => {
-                current.handleDelete(mockAddNote.id);
+                current.handleDelete(mockNote2.id);
             });
             expect(NotesRepo.prototype.delete).toHaveBeenCalled();
             expect(spyConsole).toBeCalled();
