@@ -4,6 +4,7 @@ import { NoteNoId, NoteStructure } from '../models/note';
 import { NotesRepo } from '../services/repository/notes.repo';
 
 export type UseNotes = {
+    getStatus: () => Status;
     getNotes: () => Array<NoteStructure>;
     handleLoad: () => Promise<void>;
     handleAdd: (note: NoteNoId) => Promise<void>;
@@ -11,19 +12,26 @@ export type UseNotes = {
     handleDelete: (id: NoteStructure['id']) => Promise<void>;
 };
 
+type Status = 'Starting' | 'Loading' | 'Loaded';
+
 export function useNotes(): UseNotes {
     const repo = useMemo(() => new NotesRepo(), []);
     consoleDebug('useNotes Instance');
 
     const initialState: Array<NoteStructure> = [];
+    const initialStatus = 'Starting' as Status;
     const [notes, setNotes] = useState(initialState);
+    const [status, setStatus] = useState(initialStatus);
 
     const getNotes = () => notes;
+    const getStatus = () => status;
 
     const handleLoad = useCallback(async () => {
         try {
+            setStatus('Loading');
             const data = await repo.load();
             setNotes(data);
+            setStatus('Loaded');
             consoleDebug('LOAD Notes');
         } catch (error) {
             handleError(error as Error);
@@ -74,6 +82,7 @@ export function useNotes(): UseNotes {
     };
 
     return {
+        getStatus,
         getNotes,
         handleLoad,
         handleAdd,

@@ -52,6 +52,7 @@ describe(`Given useNotes (custom hook)
             expect(current.getNotes()).toEqual([]);
         });
         test('Then its function handleLoad should be add notes to the state', async () => {
+            expect(current.getStatus()).toBe('Starting');
             await act(async () => {
                 current.handleLoad();
             });
@@ -65,7 +66,7 @@ describe(`Given useNotes (custom hook)
         });
         test('Then its function handleAdd should be used', async () => {
             await act(async () => {
-                current.handleAdd(mockAddNote);
+                await current.handleAdd(mockAddNote);
             });
             expect(NotesRepo.prototype.create).toHaveBeenCalled();
             // PROBLEMA: el expect no se cumple
