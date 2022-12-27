@@ -1,11 +1,9 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import {
-    mockNote1,
     mockNote2,
     mockAddNote,
     mockUpdateNote,
-    mockNotes,
     mockValidRepoResponse,
     mockNoValidRepoResponse,
 } from './testing.mock';
