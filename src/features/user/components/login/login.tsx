@@ -9,6 +9,7 @@ type FormField = {
     label: string;
     placeholder: string;
     name: keyof LoginFormData;
+    id: string;
     type: 'text' | 'password';
 };
 
@@ -17,12 +18,14 @@ const loginFormFields: Array<FormField> = [
         label: 'User name',
         placeholder: 'Escribe tu nombre de usuario',
         name: 'user',
+        id: 'user-01',
         type: 'text',
     },
     {
         label: 'Password',
         placeholder: 'Escribe tu password',
         name: 'passwd',
+        id: 'passwd-01',
         type: 'password',
     },
 ];
@@ -60,7 +63,7 @@ export function Login() {
                     //         placeholder={field.placeholder}
                     //     />
                     // </div>
-                    <Input field={field}></Input>
+                    <Input key={field.name} field={field}></Input>
                 ))}
                 <button type="submit">Login</button>
             </form>
@@ -75,7 +78,7 @@ function Input({ field }: { field: FormField }) {
             <input
                 type={field.type}
                 name={field.name}
-                id={field.name}
+                id={field.id}
                 placeholder={field.placeholder}
             />
         </div>
