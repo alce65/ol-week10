@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { consoleDebug } from '../../../../../tools/debug';
 import { FormField } from '../../types/form';
 import { Input } from '../input/input';
 
@@ -19,7 +20,7 @@ export function Form<T>({
             const value = formData.get(key) as T[keyof T] & string;
             finalFormData[key] = value;
         }
-        console.log(finalFormData);
+        consoleDebug(finalFormData);
     };
     return (
         <>

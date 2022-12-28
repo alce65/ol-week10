@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { consoleDebug } from '../../../../tools/debug';
 
 type LoginFormData = {
     user: string;
@@ -11,6 +12,7 @@ type FormField = {
     name: keyof LoginFormData;
     id: string;
     type: 'text' | 'password';
+    role?: 'textbox';
 };
 
 const loginFormFields: Array<FormField> = [
@@ -27,6 +29,7 @@ const loginFormFields: Array<FormField> = [
         name: 'passwd',
         id: 'passwd-01',
         type: 'password',
+        role: 'textbox',
     },
 ];
 
@@ -43,10 +46,9 @@ export function Login() {
         };
         let key: keyof LoginFormData;
         for (key in loginFormData) {
-            if (formData.get(key) === null) continue;
             loginFormData[key] = formData.get(key) as string;
         }
-        console.log(loginFormData);
+        consoleDebug(loginFormData);
     };
     return (
         <>
@@ -72,15 +74,21 @@ export function Login() {
 }
 
 function Input({ field }: { field: FormField }) {
+    const attributes: { [key: string]: string } = {
+        type: field.type,
+        name: field.name,
+        id: field.id,
+        placeholder: field.placeholder,
+    };
+
+    if (field.role) {
+        attributes.role = field.role;
+    }
+
     return (
         <div key={field.name}>
-            <label htmlFor={field.name}>{field.label}</label>
-            <input
-                type={field.type}
-                name={field.name}
-                id={field.id}
-                placeholder={field.placeholder}
-            />
+            <label htmlFor={field.id}>{field.label}</label>
+            <input {...attributes} />
         </div>
     );
 }

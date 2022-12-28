@@ -4,4 +4,5 @@ export type FormField<T> = {
     name: keyof T & string;
     id: string;
     type: 'text' | 'password';
+    role?: 'textbox';
 };
