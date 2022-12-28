@@ -1,6 +1,6 @@
 import { FormField } from '../../types/form';
 
-function defineAttributes<T>(field: FormField<T>) {
+const defineAttributes = <T,>(field: FormField<T>) => {
     const attributes: { [key: string]: string } = {
         type: field.type,
         name: field.name,
@@ -12,7 +12,7 @@ function defineAttributes<T>(field: FormField<T>) {
         attributes.role = field.role;
     }
     return attributes;
-}
+};
 
 export function Input<T>({ field }: { field: FormField<T> }) {
     const attributes = defineAttributes(field);
