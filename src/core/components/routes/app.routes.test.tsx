@@ -4,38 +4,31 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import HomePage from '../../../features/home/pages/home.page';
 import TodoPage from '../../../features/todo/pages/todo.page';
 import NotesPage from '../../../features/notes/pages/notes.page';
+import UserPage from '../../../features/user/pages/user.page';
 import AboutPage from '../../../features/about/pages/about.page';
-import { MenuItems } from '../../types/menu.item';
+import { mockPageTitles, items } from './mocks';
 import { AppRoutes } from './app.routes';
-
-const pageTitles = ['Test Home', 'Test Todo', 'Test Notes', 'Test About'];
 
 jest.mock('../../../features/home/pages/home.page');
 jest.mock('../../../features/todo/pages/todo.page');
 jest.mock('../../../features/notes/pages/notes.page');
+jest.mock('../../../features/user/pages/user.page');
 jest.mock('../../../features/about/pages/about.page');
 
 const testRoute = (index: number) => {
-    const title = new RegExp(pageTitles[index], 'i'); // Antes /Test Home/i;
+    const title = new RegExp(mockPageTitles[index], 'i'); // Antes /Test Home/i;
     const element = screen.getByText(title);
     expect(element).toBeInTheDocument();
 };
 
 describe('Given AppRoutes component, if the user is NOT logged', () => {
     let paths: Array<string>;
-    let items: MenuItems;
     beforeEach(() => {
-        items = [
-            { path: '/home', label: 'Inicio' },
-            { path: '/todo', label: 'Tareas' },
-            { path: '/notes', label: 'Notas' },
-            { path: '/about', label: 'Nosotros' },
-        ];
         paths = items.map((item) => item.path);
     });
     describe(`When we render the component`, () => {
         test('Then, if the route is home, it should display the HomePage', () => {
-            (HomePage as jest.Mock).mockReturnValue(<p>{pageTitles[0]}</p>);
+            (HomePage as jest.Mock).mockReturnValue(<p>{mockPageTitles[0]}</p>);
             render(
                 <Router initialEntries={paths} initialIndex={0}>
                     <AppRoutes items={items} />
@@ -45,7 +38,7 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
         });
 
         test('Then, if the route is todo, it should display the TodoPage', () => {
-            (TodoPage as jest.Mock).mockReturnValue(<p>{pageTitles[1]}</p>);
+            (TodoPage as jest.Mock).mockReturnValue(<p>{mockPageTitles[1]}</p>);
             render(
                 <Router initialEntries={paths} initialIndex={1}>
                     <AppRoutes items={items} />
@@ -55,7 +48,9 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
         });
 
         test('Then, if the route is notes, it should display the NotesPage', () => {
-            (NotesPage as jest.Mock).mockReturnValue(<p>{pageTitles[2]}</p>);
+            (NotesPage as jest.Mock).mockReturnValue(
+                <p>{mockPageTitles[2]}</p>
+            );
             render(
                 <Router initialEntries={paths} initialIndex={2}>
                     <AppRoutes items={items} />
@@ -64,14 +59,26 @@ describe('Given AppRoutes component, if the user is NOT logged', () => {
             testRoute(2);
         });
 
-        test('Then, if the route is about, it should display the AboutPage', () => {
-            (AboutPage as jest.Mock).mockReturnValue(<p>{pageTitles[3]}</p>);
+        test('Then, if the route is user/login, it should display the UserPage', () => {
+            (UserPage as jest.Mock).mockReturnValue(<p>{mockPageTitles[3]}</p>);
             render(
                 <Router initialEntries={paths} initialIndex={3}>
                     <AppRoutes items={items} />
                 </Router>
             );
             testRoute(3);
+        });
+
+        test('Then, if the route is about, it should display the AboutPage', () => {
+            (AboutPage as jest.Mock).mockReturnValue(
+                <p>{mockPageTitles[4]}</p>
+            );
+            render(
+                <Router initialEntries={paths} initialIndex={4}>
+                    <AppRoutes items={items} />
+                </Router>
+            );
+            testRoute(4);
         });
     });
 });
