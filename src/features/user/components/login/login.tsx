@@ -89,7 +89,7 @@ function Input({ field }: { field: FormField }) {
     return (
         <div key={field.name}>
             <Label htmlFor={field.id}>{field.label}</Label>
-            <HtmlInput {...attributes} />
+            <HtmlInput {...attributes} required />
         </div>
     );
 }
