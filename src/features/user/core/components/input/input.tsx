@@ -1,4 +1,5 @@
 import { FormField } from '../../types/form';
+import style from './input.module.css';
 
 const defineAttributes = <T,>(field: FormField<T>) => {
     const attributes: { [key: string]: string } = {
@@ -19,8 +20,10 @@ export function Input<T>({ field }: { field: FormField<T> }) {
 
     return (
         <div key={field.name}>
-            <label htmlFor={field.id}>{field.label}</label>
-            <input {...attributes} />
+            <label className={style.label} htmlFor={field.id}>
+                {field.label}
+            </label>
+            <input className={style.input} {...attributes} />
         </div>
     );
 }
