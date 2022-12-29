@@ -2,6 +2,7 @@ import { SyntheticEvent } from 'react';
 import { consoleDebug } from '../../../../../tools/debug';
 import { FormField } from '../../types/form';
 import { Input } from '../input/input';
+import style from './form.module.css';
 
 // T: type of FormData  e.g. LoginFormData)
 export function Form<T>({
@@ -29,7 +30,9 @@ export function Form<T>({
                 {formFields.map((field) => (
                     <Input key={field.name} field={field}></Input>
                 ))}
-                <button type="submit">Login</button>
+                <button className={style.button} type="submit">
+                    Login
+                </button>
             </form>
         </>
     );
