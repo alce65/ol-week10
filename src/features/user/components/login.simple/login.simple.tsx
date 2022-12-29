@@ -2,6 +2,12 @@ import { FormField } from '../../core/types/form';
 import { Form } from '../../core/components/form/form';
 
 export function LoginSimple() {
+    // El tipo LoginFormData define los campos de datos del formulario
+
+    // El tipo FormField<LoginFormData> define el conjunto de datos necesarios
+    // para definir cada control del formulario: type, name, id....
+    // El name solo puede ser alguno de los campos del LoginFormData
+
     type LoginFormData = {
         user: string;
         passwd: string;
@@ -14,6 +20,7 @@ export function LoginSimple() {
             name: 'user',
             id: 'user-02',
             type: 'text',
+            required: true,
         },
         {
             label: 'Password',
@@ -21,6 +28,7 @@ export function LoginSimple() {
             name: 'passwd',
             id: 'passwd-02',
             type: 'password',
+            required: true,
         },
     ];
 

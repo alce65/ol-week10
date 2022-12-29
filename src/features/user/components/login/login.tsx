@@ -1,6 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { consoleDebug } from '../../../../tools/debug';
-import { Button, HtmlInput, Label } from './login.styled';
+import { Button } from './login.styled';
+import styled from 'styled-components';
 
 type LoginFormData = {
     user: string;
@@ -75,6 +76,18 @@ export function Login() {
 }
 
 function Input({ field }: { field: FormField }) {
+    const Input = styled.input`
+        border: none;
+        border-block-end: 2px solid var(--light-gray);
+        width: 100%;
+        margin-block-end: 1rem;
+    `;
+
+    const Label = styled.label`
+        display: block;
+        padding-block-end: 0.5rem;
+    `;
+
     const attributes: { [key: string]: string } = {
         type: field.type,
         name: field.name,
@@ -89,7 +102,7 @@ function Input({ field }: { field: FormField }) {
     return (
         <div key={field.name}>
             <Label htmlFor={field.id}>{field.label}</Label>
-            <HtmlInput {...attributes} required />
+            <Input {...attributes} required />
         </div>
     );
 }
