@@ -1,5 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { consoleDebug } from '../../../../tools/debug';
+import { Button, HtmlInput, Label } from './login.styled';
 
 type LoginFormData = {
     user: string;
@@ -67,7 +68,7 @@ export function Login() {
                     // </div>
                     <Input key={field.name} field={field}></Input>
                 ))}
-                <button type="submit">Login</button>
+                <Button type="submit">Login</Button>
             </form>
         </>
     );
@@ -87,8 +88,8 @@ function Input({ field }: { field: FormField }) {
 
     return (
         <div key={field.name}>
-            <label htmlFor={field.id}>{field.label}</label>
-            <input {...attributes} />
+            <Label htmlFor={field.id}>{field.label}</Label>
+            <HtmlInput {...attributes} />
         </div>
     );
 }
