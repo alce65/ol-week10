@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 import { consoleDebug } from '../../../../../tools/debug';
 import { FormField } from '../../types/form';
 import { ValidatedInput } from '../validate.input/input';
@@ -13,6 +13,20 @@ export function ValidateForm<T>({
     finalFormData: T;
     labelButton: string;
 }) {
+    const [valid, setValid] = useState(false);
+
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const handleFormValidity = () => {
+        const formElement = formRef.current as HTMLFormElement;
+        // Alternativa a la aserción sería un guard
+        // if (formElement === null) return;
+        if (formElement.checkValidity()) {
+            setValid(true);
+        } else {
+            setValid(false);
+        }
+    };
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         const form = ev.target as HTMLFormElement;
@@ -35,15 +49,31 @@ export function ValidateForm<T>({
     };
     return (
         <>
-            <form onSubmit={handleSubmit} noValidate>
+            <form
+                onSubmit={handleSubmit}
+                noValidate
+                ref={formRef}
+                aria-label="form"
+            >
                 {formFields.map((field) => (
                     <ValidatedInput
                         key={field.name}
                         field={field}
+                        formValidation={handleFormValidity}
                     ></ValidatedInput>
                 ))}
-                <button className={style.button} type="submit">
+                <button
+                    className={style.button}
+                    type="submit"
+                    disabled={!valid}
+                >
                     {labelButton}
+                </button>
+                <button
+                    type="submit"
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                >
+                    For Test submit invalid forms
                 </button>
             </form>
         </>

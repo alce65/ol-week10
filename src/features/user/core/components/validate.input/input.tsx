@@ -3,7 +3,13 @@ import { FormField } from '../../types/form';
 import { defineAttributes } from '../input/input';
 import style from './input.module.css';
 
-export function ValidatedInput<T>({ field }: { field: FormField<T> }) {
+export function ValidatedInput<T>({
+    field,
+    formValidation,
+}: {
+    field: FormField<T>;
+    formValidation: () => void;
+}) {
     const attributes = defineAttributes(field);
 
     // const [pristine, setPristine] = useState(true);
@@ -16,6 +22,7 @@ export function ValidatedInput<T>({ field }: { field: FormField<T> }) {
         const element = ev.target as HTMLInputElement;
         setValid(element.checkValidity());
         setErrorMessage(element.validationMessage);
+        formValidation();
     };
 
     return (
