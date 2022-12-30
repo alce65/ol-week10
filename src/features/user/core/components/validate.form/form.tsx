@@ -17,7 +17,7 @@ export function ValidateForm<T>({
 
     const formRef = useRef<HTMLFormElement>(null);
 
-    const handleFormValidity = () => {
+    function handleFormValidity() {
         const formElement = formRef.current as HTMLFormElement;
         // Alternativa a la aserción sería un guard
         // if (formElement === null) return;
@@ -26,8 +26,8 @@ export function ValidateForm<T>({
         } else {
             setValid(false);
         }
-    };
-    const handleSubmit = (ev: SyntheticEvent) => {
+    }
+    function handleSubmit(ev: SyntheticEvent) {
         ev.preventDefault();
         const form = ev.target as HTMLFormElement;
 
@@ -46,7 +46,7 @@ export function ValidateForm<T>({
             finalFormData[key] = value;
         }
         consoleDebug(finalFormData);
-    };
+    }
     return (
         <>
             <form

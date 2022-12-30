@@ -12,6 +12,8 @@ export function ValidatedInput<T>({
 }) {
     const attributes = defineAttributes(field);
 
+    // Para simular el comportamiento en Angular
+    // Se añadirían los estados:
     // const [pristine, setPristine] = useState(true);
     // const [untouched, setUntouched] = useState(true);
     // const [invalid, setInvalid] = useState(true);
