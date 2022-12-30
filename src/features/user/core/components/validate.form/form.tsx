@@ -1,12 +1,10 @@
 import { SyntheticEvent } from 'react';
-
 import { consoleDebug } from '../../../../../tools/debug';
 import { FormField } from '../../types/form';
-import { Input } from '../input/input';
-import style from './form.module.css';
+import { ValidatedInput } from '../input/input';
+import style from '../form/form.module.css';
 
-// T: type of FormData  e.g. LoginFormData)
-export function Form<T>({
+export function ValidateForm<T>({
     formFields,
     finalFormData,
     labelButton,
@@ -19,6 +17,14 @@ export function Form<T>({
         ev.preventDefault();
         const form = ev.target as HTMLFormElement;
 
+        // El api de validación incluye la propiedad noValidate y el método checkValidity
+        // con el valor boolean que indica la validez o no del formulario
+        // El método reportValidity que desencadena la aparición
+        // de los mensajes de validación necesarios
+        if (!form.checkValidity()) {
+            consoleDebug('Formulario no valido');
+            return;
+        }
         const formData = new FormData(form);
         let key: keyof T;
         for (key in finalFormData) {
@@ -31,7 +37,10 @@ export function Form<T>({
         <>
             <form onSubmit={handleSubmit} noValidate>
                 {formFields.map((field) => (
-                    <Input key={field.name} field={field}></Input>
+                    <ValidatedInput
+                        key={field.name}
+                        field={field}
+                    ></ValidatedInput>
                 ))}
                 <button className={style.button} type="submit">
                     {labelButton}

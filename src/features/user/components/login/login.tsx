@@ -35,8 +35,6 @@ const loginFormFields: Array<FormField> = [
     },
 ];
 
-// console.log(keyof LoginFormData)
-
 export function Login() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -75,19 +73,19 @@ export function Login() {
     );
 }
 
+const InputHTML = styled.input`
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
+`;
+
+const Label = styled.label`
+    display: block;
+    padding-block-end: 0.5rem;
+`;
+
 function Input({ field }: { field: FormField }) {
-    const Input = styled.input`
-        border: none;
-        border-block-end: 2px solid var(--light-gray);
-        width: 100%;
-        margin-block-end: 1rem;
-    `;
-
-    const Label = styled.label`
-        display: block;
-        padding-block-end: 0.5rem;
-    `;
-
     const attributes: { [key: string]: string } = {
         type: field.type,
         name: field.name,
@@ -102,7 +100,7 @@ function Input({ field }: { field: FormField }) {
     return (
         <div key={field.name}>
             <Label htmlFor={field.id}>{field.label}</Label>
-            <Input {...attributes} required />
+            <InputHTML {...attributes} required />
         </div>
     );
 }

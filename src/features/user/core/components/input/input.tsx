@@ -47,8 +47,6 @@ export function ValidatedInput<T>({ field }: { field: FormField<T> }) {
         const element = ev.target as HTMLInputElement;
         setValid(element.checkValidity());
         setErrorMessage(element.validationMessage);
-        console.log(element.validity);
-        console.dir(element.checkValidity);
     };
 
     return (

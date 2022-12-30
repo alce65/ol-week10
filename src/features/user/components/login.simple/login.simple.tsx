@@ -1,5 +1,6 @@
-import { FormField } from '../../core/types/form';
 import { Form } from '../../core/components/form/form';
+import { ValidateForm } from '../../core/components/validate.form/form';
+import { FormField } from '../../core/types/form';
 
 export function LoginSimple() {
     // El tipo LoginFormData define los campos de datos del formulario
@@ -37,12 +38,22 @@ export function LoginSimple() {
         passwd: '',
     };
 
+    const labelButton = 'Login';
+
     return (
         <>
+            <h3>Login</h3>
             <Form<LoginFormData>
                 formFields={loginFormFields}
                 finalFormData={loginFormData}
+                labelButton={labelButton}
             ></Form>
+            <h3>Login (with own validation)</h3>
+            <ValidateForm<LoginFormData>
+                formFields={loginFormFields}
+                finalFormData={loginFormData}
+                labelButton={labelButton}
+            ></ValidateForm>
         </>
     );
 }

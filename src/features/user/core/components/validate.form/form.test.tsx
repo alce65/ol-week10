@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { FormField } from '../../types/form';
-import { Form } from './form';
+import { ValidateForm } from './form';
 import { consoleDebug } from '../../../../../tools/debug';
 
 jest.mock('../../../../../tools/debug');
@@ -24,6 +24,7 @@ describe('Given component Form', () => {
             type: 'password',
             id: 'sample-01',
             role: 'textbox',
+            required: true,
         },
     ];
 
@@ -33,11 +34,11 @@ describe('Given component Form', () => {
         let buttonElement: HTMLButtonElement;
         beforeEach(() => {
             render(
-                <Form
+                <ValidateForm
                     finalFormData={finalFormData}
                     formFields={formFields}
                     labelButton="Test form"
-                ></Form>
+                ></ValidateForm>
             );
             labelElement = screen.getByLabelText(mockLabel);
             inputElement = screen.getByRole('textbox');
@@ -48,14 +49,24 @@ describe('Given component Form', () => {
             expect(inputElement).toBeInTheDocument();
             expect(buttonElement).toBeInTheDocument();
         });
-        test('Then if user click button data from inputs should be recovered', () => {
+        test('Then if user click button, data from inputs should be recovered', () => {
             const mockInput = 'Test input';
             userEvent.type(inputElement, mockInput);
             expect(inputElement).toHaveValue(mockInput);
             userEvent.click(buttonElement);
-            expect(consoleDebug).toHaveBeenCalledWith({
+            expect(consoleDebug).toHaveBeenLastCalledWith({
                 sample: mockInput,
             });
+        });
+        test(`Then if user click button without required input data,
+                ...`, () => {
+            userEvent.clear(inputElement);
+            expect(inputElement).toHaveValue('');
+            userEvent.click(buttonElement);
+            expect(inputElement).toBeInvalid();
+            expect(consoleDebug).toHaveBeenLastCalledWith(
+                'Formulario no valido'
+            );
         });
     });
 });
