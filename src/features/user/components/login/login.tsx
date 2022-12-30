@@ -1,5 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { consoleDebug } from '../../../../tools/debug';
+import { Button } from './login.styled';
+import styled from 'styled-components';
 
 type LoginFormData = {
     user: string;
@@ -33,8 +35,6 @@ const loginFormFields: Array<FormField> = [
     },
 ];
 
-// console.log(keyof LoginFormData)
-
 export function Login() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -52,7 +52,8 @@ export function Login() {
     };
     return (
         <>
-            <h3>Login</h3>
+            <h3>Login (HTML validation)</h3>
+            <p>Component standalone login</p>
             <form onSubmit={handleSubmit}>
                 {loginFormFields.map((field) => (
                     // extraído a un componente independiente
@@ -67,11 +68,23 @@ export function Login() {
                     // </div>
                     <Input key={field.name} field={field}></Input>
                 ))}
-                <button type="submit">Login</button>
+                <Button type="submit">Login</Button>
             </form>
         </>
     );
 }
+
+const InputHTML = styled.input`
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
+`;
+
+const Label = styled.label`
+    display: block;
+    padding-block-end: 0.5rem;
+`;
 
 function Input({ field }: { field: FormField }) {
     const attributes: { [key: string]: string } = {
@@ -87,8 +100,8 @@ function Input({ field }: { field: FormField }) {
 
     return (
         <div key={field.name}>
-            <label htmlFor={field.id}>{field.label}</label>
-            <input {...attributes} />
+            <Label htmlFor={field.id}>{field.label}</Label>
+            <InputHTML {...attributes} required />
         </div>
     );
 }

@@ -1,0 +1,18 @@
+.label {
+    display: block;
+    padding-block-end: 0.5rem;
+}
+
+.input {
+    border: none;
+    border-block-end: 2px solid var(--light-gray);
+    width: 100%;
+    margin-block-end: 1rem;
+}
+
+.error {
+    border: 1px solid gainsboro;
+    padding: 0.5rem 1rem;
+    color: maroon;
+    font-size: 0.8rem;
+}

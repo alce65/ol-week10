@@ -5,4 +5,5 @@ export type FormField<T> = {
     id: string;
     type: 'text' | 'password';
     role?: 'textbox';
+    required?: true;
 };
