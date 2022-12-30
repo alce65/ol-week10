@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { consoleDebug } from '../../../../../tools/debug';
 import { FormField } from '../../types/form';
-import { ValidatedInput } from '../input/input';
+import { ValidatedInput } from '../validate.input/input';
 import style from '../form/form.module.css';
 
 export function ValidateForm<T>({

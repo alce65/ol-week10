@@ -52,7 +52,8 @@ export function Login() {
     };
     return (
         <>
-            <h3>Login</h3>
+            <h3>Login (HTML validation)</h3>
+            <p>Component standalone login</p>
             <form onSubmit={handleSubmit}>
                 {loginFormFields.map((field) => (
                     // extraído a un componente independiente

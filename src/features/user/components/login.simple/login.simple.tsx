@@ -42,13 +42,15 @@ export function LoginSimple() {
 
     return (
         <>
-            <h3>Login</h3>
+            <h3>Login (without validation)</h3>
+            <p>Components composition: Login + Form + Input</p>
             <Form<LoginFormData>
                 formFields={loginFormFields}
                 finalFormData={loginFormData}
                 labelButton={labelButton}
             ></Form>
             <h3>Login (with own validation)</h3>
+            <p>Components composition: Login + Form + Input</p>
             <ValidateForm<LoginFormData>
                 formFields={[
                     { ...loginFormFields[0], id: 'user-03' },
