@@ -50,7 +50,10 @@ export function LoginSimple() {
             ></Form>
             <h3>Login (with own validation)</h3>
             <ValidateForm<LoginFormData>
-                formFields={loginFormFields}
+                formFields={[
+                    { ...loginFormFields[0], id: 'user-03' },
+                    { ...loginFormFields[1], id: 'passwd-03' },
+                ]}
                 finalFormData={loginFormData}
                 labelButton={labelButton}
             ></ValidateForm>
