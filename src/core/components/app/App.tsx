@@ -1,7 +1,7 @@
 import './App.css';
 import { Layout } from '../layout/layout';
 import { MenuItems } from '../../types/menu.item';
-import { AppRoutes } from '../routes/app.routes';
+import { AppLazyRoutes } from '../routes/app.lazy.routes';
 export function App() {
     const items: MenuItems = [
         { path: '/home', label: 'Inicio' },
@@ -13,7 +13,9 @@ export function App() {
     return (
         <>
             <Layout items={items}>
-                <AppRoutes items={items}></AppRoutes>
+                {/* Alternativamente podemos usar rutas NO lazy
+                <AppRoutes items={items}></AppRoutes> */}
+                <AppLazyRoutes items={items}></AppLazyRoutes>
             </Layout>
         </>
     );

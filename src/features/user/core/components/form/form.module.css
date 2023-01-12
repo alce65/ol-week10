@@ -1,0 +1,12 @@
+.button {
+    padding: 0.4rem 0.8rem;
+    background-color: maroon;
+    color: bisque;
+    cursor: pointer;
+}
+
+.button:disabled {
+    background-color: rgba(128, 0, 0, 0.6);
+    color: bisque;
+    cursor: default;
+}

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { FormField } from '../../types/form';
-import { Form } from './form';
+import { ValidateForm } from './form';
 import { consoleDebug } from '../../../../../tools/debug';
 
 jest.mock('../../../../../tools/debug');
@@ -24,38 +24,55 @@ describe('Given component Form', () => {
             type: 'password',
             id: 'sample-01',
             role: 'textbox',
+            required: true,
         },
     ];
 
     describe('When it has be rendered', () => {
         let labelElement: HTMLLabelElement;
         let inputElement: HTMLInputElement;
-        let buttonElement: HTMLButtonElement;
+        let buttonElements: Array<HTMLButtonElement>;
+        let formElement: HTMLFormElement;
         beforeEach(() => {
             render(
-                <Form
+                <ValidateForm
                     finalFormData={finalFormData}
                     formFields={formFields}
                     labelButton="Test form"
-                ></Form>
+                ></ValidateForm>
             );
             labelElement = screen.getByLabelText(mockLabel);
             inputElement = screen.getByRole('textbox');
-            buttonElement = screen.getByRole('button');
+            buttonElements = screen.getAllByRole('button');
+            formElement = screen.getByRole('form');
         });
         test('Then label and controls should be in the screen', () => {
             expect(labelElement).toBeInTheDocument();
             expect(inputElement).toBeInTheDocument();
-            expect(buttonElement).toBeInTheDocument();
+            expect(buttonElements[0]).toBeInTheDocument();
+            expect(formElement).toBeInTheDocument();
         });
-        test('Then if user click button data from inputs should be recovered', () => {
+        test('Then if user click button, data from inputs should be recovered', () => {
             const mockInput = 'Test input';
             userEvent.type(inputElement, mockInput);
             expect(inputElement).toHaveValue(mockInput);
-            userEvent.click(buttonElement);
-            expect(consoleDebug).toHaveBeenCalledWith({
+            userEvent.tab();
+            userEvent.click(buttonElements[0]);
+            expect(consoleDebug).toHaveBeenLastCalledWith({
                 sample: mockInput,
             });
+        });
+        test(`Then if user click button without required input data,
+                ...`, () => {
+            userEvent.clear(inputElement);
+            expect(inputElement).toHaveValue('');
+            userEvent.tab();
+            expect(inputElement).toBeInvalid();
+            userEvent.click(buttonElements[1]);
+            // button disabled => no submit event
+            expect(consoleDebug).toHaveBeenLastCalledWith(
+                'Formulario no valido'
+            );
         });
     });
 });

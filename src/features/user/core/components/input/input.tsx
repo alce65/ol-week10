@@ -1,7 +1,8 @@
 import { FormField } from '../../types/form';
+import style from './input.module.css';
 
-const defineAttributes = <T,>(field: FormField<T>) => {
-    const attributes: { [key: string]: string } = {
+export const defineAttributes = <T,>(field: FormField<T>) => {
+    const attributes: { [key: string]: string | boolean } = {
         type: field.type,
         name: field.name,
         id: field.id,
@@ -11,6 +12,10 @@ const defineAttributes = <T,>(field: FormField<T>) => {
     if (field.role) {
         attributes.role = field.role;
     }
+    if (field.required) {
+        attributes.required = field.required;
+    }
+
     return attributes;
 };
 
@@ -19,8 +24,10 @@ export function Input<T>({ field }: { field: FormField<T> }) {
 
     return (
         <div key={field.name}>
-            <label htmlFor={field.id}>{field.label}</label>
-            <input {...attributes} />
+            <label className={style.label} htmlFor={field.id}>
+                {field.label}
+            </label>
+            <input className={style.input} {...attributes} />
         </div>
     );
 }
