@@ -1,12 +1,24 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Add } from './add';
+import {
+    NoteContext,
+    NoteContextStructure,
+} from '../../../../core/context/note.context';
 
 describe('Given "Add" component in "Notes" feature', () => {
     const handleAdd = jest.fn();
 
+    const mockContext = {
+        handleAdd,
+    } as unknown as NoteContextStructure;
+
     beforeEach(() => {
-        render(<Add handleAdd={handleAdd}></Add>);
+        render(
+            <NoteContext.Provider value={mockContext}>
+                <Add></Add>
+            </NoteContext.Provider>
+        );
     });
 
     describe('When component is call with a DOM implementation', () => {

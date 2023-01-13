@@ -1,15 +1,11 @@
+import { useContext } from 'react';
+import { NoteContext } from '../../../../core/context/note.context';
 import { NoteStructure } from '../../models/note';
 import './item.css';
 
-export function Item({
-    item,
-    handleUpdate,
-    handleDelete,
-}: {
-    item: NoteStructure;
-    handleUpdate: (note: Partial<NoteStructure>) => void;
-    handleDelete: (id: NoteStructure['id']) => void;
-}) {
+export function Item({ item }: { item: NoteStructure }) {
+    const { handleUpdate, handleDelete } = useContext(NoteContext);
+
     const handleChange = () => {
         item.isImportant = !item.isImportant;
         handleUpdate(item);

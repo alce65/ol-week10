@@ -1,13 +1,16 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useContext, useState } from 'react';
+import { NoteContext } from '../../../../core/context/note.context';
 
 import { NoteLite, NoteNoId } from '../../models/note';
 import './add.css';
 
-export function Add({ handleAdd }: { handleAdd: (note: NoteNoId) => void }) {
+export function Add() {
     const initialFormData: Partial<NoteNoId> = {
         title: '',
         author: '',
     };
+
+    const { handleAdd } = useContext(NoteContext);
 
     const [formData, setFormData] = useState(initialFormData);
 

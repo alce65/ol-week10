@@ -1,30 +1,31 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { List } from './list';
-import { useNotes } from '../../hooks/use.notes';
-import { Note } from '../../models/note';
 
-jest.mock('../../hooks/use.notes');
+import { Note } from '../../models/note';
+import {
+    NoteContext,
+    NoteContextStructure,
+} from '../../../../core/context/note.context';
 
 const mockNotes = [new Note('Test note', 'user')];
 
 describe('Given "List" component', () => {
-    beforeEach(() => {
-        (useNotes as jest.Mock).mockReturnValue({
-            getNotes: jest.fn(),
-            handleLoad: jest.fn(),
-            handleAdd: jest.fn(),
-            handleDelete: jest.fn(),
-            handleUpdate: jest.fn(),
-        });
-    });
+    const handleLoad = jest.fn();
+    let mockContext: NoteContextStructure;
+
     describe('When it is initially instantiated without data', () => {
-        beforeEach(() => {
-            (useNotes().getNotes as jest.Mock).mockReturnValue([]);
-        });
         beforeEach(async () => {
+            mockContext = {
+                notes: [],
+                handleLoad,
+            } as unknown as NoteContextStructure;
             await act(async () => {
-                render(<List></List>);
+                render(
+                    <NoteContext.Provider value={mockContext}>
+                        <List></List>
+                    </NoteContext.Provider>
+                );
             });
         });
         test(`Then component should be render the loading`, () => {
@@ -38,24 +39,28 @@ describe('Given "List" component', () => {
             expect(elementTitle).toBeInTheDocument();
             expect(elementAdd).toBeInTheDocument();
             expect(elementLoading).toBeInTheDocument();
-            expect(useNotes().getNotes).toHaveBeenCalled();
         });
     });
 
     describe('When it load the data from getNote', () => {
-        beforeEach(() => {
-            (useNotes().getNotes as jest.Mock).mockReturnValue(mockNotes);
-        });
         beforeEach(async () => {
+            mockContext = {
+                notes: mockNotes,
+                handleLoad,
+            } as unknown as NoteContextStructure;
             await act(async () => {
-                render(<List></List>);
+                render(
+                    <NoteContext.Provider value={mockContext}>
+                        <List></List>
+                    </NoteContext.Provider>
+                );
             });
         });
         test(`Then it should be render the data`, async () => {
             const elementList = await screen.findByRole('list'); // <ul />
             expect(elementList).toBeInTheDocument();
             await waitFor(() => {
-                expect(useNotes().handleLoad).toHaveBeenCalled();
+                expect(handleLoad).toHaveBeenCalled();
             });
             const elementItem = await screen.findByText(/Test note/i);
             expect(elementItem).toBeInTheDocument();
