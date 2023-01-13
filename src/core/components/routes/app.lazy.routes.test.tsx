@@ -101,7 +101,7 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
         beforeEach(async () => {
             await act(async () => {
                 render(
-                    <Router initialEntries={lazyPaths} initialIndex={3}>
+                    <Router initialEntries={lazyPaths} initialIndex={4}>
                         <AppLazyRoutes items={items} />
                     </Router>
                 );
@@ -116,7 +116,7 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
         beforeEach(async () => {
             await act(async () => {
                 render(
-                    <Router initialEntries={lazyPaths} initialIndex={4}>
+                    <Router initialEntries={lazyPaths} initialIndex={5}>
                         <AppLazyRoutes items={items} />
                     </Router>
                 );
