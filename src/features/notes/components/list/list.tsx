@@ -7,8 +7,6 @@ import './list.css';
 export function List() {
     const { notes, handleLoad } = useContext(NoteContext);
 
-    console.log('Desde contexto', notes);
-
     useEffect(() => {
         handleLoad();
     }, [handleLoad]);

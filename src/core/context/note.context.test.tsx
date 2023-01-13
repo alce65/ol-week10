@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
 import { NoteStructure } from '../../features/notes/models/note';
 
-// Se importa directamente el initialcontex
-// para que el test utilice las funciones definidas en el
+// Se importa directamente el initialContext
+// para que el test utilice las funciones definidas en él
 import { initialContext, NoteContext } from './note.context';
 
 const mockNote: NoteStructure = {
@@ -18,10 +17,6 @@ initialContext.notes = [mockNote];
 
 describe('Given the context AppContext', () => {
     let TestComponent: () => JSX.Element;
-    // initialContext.handleLoad()
-    // initialContext.handleAdd(mockNote);
-    // initialContext.handleUpdate(mockNote)
-    // initialContext.handleDelete(mockNote.id);
     describe('When a Test Component is wrapper with this context', () => {
         beforeEach(() => {
             TestComponent = () => {
@@ -45,9 +40,7 @@ describe('Given the context AppContext', () => {
                     <TestComponent></TestComponent>
                 </NoteContext.Provider>
             );
-            const element = screen.getByText(
-                initialContext.notes[0].title as string
-            );
+            const element = screen.getByText(initialContext.notes[0].title);
             expect(element).toBeInTheDocument();
         });
     });
