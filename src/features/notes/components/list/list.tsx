@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
-import { useNotes } from '../../hooks/use.notes';
+import { useContext, useEffect } from 'react';
+import { NoteContext } from '../../../../core/context/note.context';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
 import './list.css';
 
 export function List() {
-    const { getNotes, handleLoad, handleAdd, handleDelete, handleUpdate } =
-        useNotes();
+    const { notes, handleLoad } = useContext(NoteContext);
+
+    console.log('Desde contexto', notes);
 
     useEffect(() => {
         handleLoad();
@@ -14,20 +15,16 @@ export function List() {
 
     return (
         <>
-            <Add handleAdd={handleAdd}></Add>
+            <Add></Add>
             <h3>Lista de notas</h3>
-            {!getNotes().length ? (
+            {!notes.length ? (
                 <p>Loading ....</p>
             ) : (
                 <ul className="note-list">
-                    {getNotes().map((item) => {
+                    {notes.map((item) => {
                         return (
                             <li key={item.id}>
-                                <Item
-                                    item={item}
-                                    handleUpdate={handleUpdate}
-                                    handleDelete={handleDelete}
-                                ></Item>
+                                <Item item={item}></Item>
                             </li>
                         );
                     })}
