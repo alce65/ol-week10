@@ -20,11 +20,14 @@ jest.mock('../../../features/notes/pages/notes.page', () => {
     return () => <p>{mockPageTitles[2]}</p>;
 });
 
-jest.mock('../../../features/user/pages/user.page', () => {
+jest.mock('../../../features/places/pages/places.page', () => {
     return () => <p>{mockPageTitles[3]}</p>;
 });
-jest.mock('../../../features/about/pages/about.page', () => {
+jest.mock('../../../features/user/pages/user.page', () => {
     return () => <p>{mockPageTitles[4]}</p>;
+});
+jest.mock('../../../features/about/pages/about.page', () => {
+    return () => <p>{mockPageTitles[5]}</p>;
 });
 
 describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
@@ -79,6 +82,21 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
         });
     });
     describe(`When we render the component 
+                And the lazy route is places`, () => {
+        beforeEach(async () => {
+            await act(async () => {
+                render(
+                    <Router initialEntries={lazyPaths} initialIndex={3}>
+                        <AppLazyRoutes items={items} />
+                    </Router>
+                );
+            });
+        });
+        test('Then it should display the PlacesPage', () => {
+            testLazyRoute(3);
+        });
+    });
+    describe(`When we render the component 
                 And the lazy route is user / login`, () => {
         beforeEach(async () => {
             await act(async () => {
@@ -89,8 +107,8 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
                 );
             });
         });
-        test('Then it should display the AboutPage', () => {
-            testLazyRoute(3);
+        test('Then it should display the UserPage', () => {
+            testLazyRoute(4);
         });
     });
     describe(`When we render the component 
@@ -105,7 +123,7 @@ describe('Given AppRoutes Lazy component, if the user is NOT logged', () => {
             });
         });
         test('Then it should display the AboutPage', () => {
-            testLazyRoute(4);
+            testLazyRoute(5);
         });
     });
 });
