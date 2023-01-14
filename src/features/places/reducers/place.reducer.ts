@@ -3,14 +3,13 @@ import { PlaceAction } from './action.creators';
 import { placeActionTypes } from './action.types';
 
 /* 
- - Función PURA
+- Función PURA
     - Ante los mismos argumentos -> la misma respuesta 
     - No modifica ni depende da nada fuera de la función
 
 - Reducer: función PURA que
     - recibe un estado y una acción
     - devuelve un nuevo estado -> NO HAY MUTACIÓN
-    
 */
 
 export function placeReducer(
