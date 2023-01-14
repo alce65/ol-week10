@@ -2,38 +2,38 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Add } from './add';
 import {
-    NoteContext,
-    NoteContextStructure,
-} from '../../../../core/context/notes/note.context';
+    PlaceContext,
+    PlaceContextStructure,
+} from '../../../../core/context/places/places.context';
 
-describe('Given "Add" component in "Notes" feature', () => {
+describe('Given "Add" component in "Places" feature', () => {
     const handleAdd = jest.fn();
 
     const mockContext = {
         handleAdd,
-    } as unknown as NoteContextStructure;
+    } as unknown as PlaceContextStructure;
 
     beforeEach(() => {
         render(
-            <NoteContext.Provider value={mockContext}>
+            <PlaceContext.Provider value={mockContext}>
                 <Add></Add>
-            </NoteContext.Provider>
+            </PlaceContext.Provider>
         );
     });
 
     describe('When component is call with a DOM implementation', () => {
-        test(`Then it should be render with its title`, () => {
-            const noteHeader = screen.getByRole('heading', {
-                name: 'Añadir nota',
+        test(`Then it should be render with its name`, () => {
+            const placeHeader = screen.getByRole('heading', {
+                name: 'Añadir lugar',
             }); // <h1>
 
-            expect(noteHeader).toBeInTheDocument();
+            expect(placeHeader).toBeInTheDocument();
         });
     });
 
     describe('When data are provided in the form', () => {
-        const mockAuthor = 'Test author';
-        const mockTitle = 'Test task';
+        const mockName = 'Test place';
+        const mockCountry = 'Test author';
         let inputElements: Array<HTMLElement>;
         let elementButton: HTMLElement;
         beforeEach(() => {
@@ -43,19 +43,19 @@ describe('Given "Add" component in "Notes" feature', () => {
         test('Then form could be used for type content', () => {
             expect(inputElements[0]).toBeInTheDocument();
             expect(inputElements[1]).toBeInTheDocument();
-            userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockAuthor);
-            expect(inputElements[0]).toHaveValue(mockTitle);
-            expect(inputElements[1]).toHaveValue(mockAuthor);
+            userEvent.type(inputElements[0], mockName);
+            userEvent.type(inputElements[1], mockCountry);
+            expect(inputElements[0]).toHaveValue(mockName);
+            expect(inputElements[1]).toHaveValue(mockCountry);
         });
         test('Then form could be used for send the function received in props', () => {
-            userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockAuthor);
+            userEvent.type(inputElements[0], mockName);
+            userEvent.type(inputElements[1], mockCountry);
             userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });
         test('Then form could be used also without value for responsible', () => {
-            userEvent.type(inputElements[0], mockTitle);
+            userEvent.type(inputElements[0], mockName);
             userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });

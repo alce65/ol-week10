@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Item } from './item';
-import { Note } from '../../models/note';
+import { Place } from '../../models/place';
 import {
-    NoteContext,
-    NoteContextStructure,
-} from '../../../../core/context/notes/note.context';
+    PlaceContext,
+    PlaceContextStructure,
+} from '../../../../core/context/places/places.context';
 
 describe('Given "Item" component', () => {
     const handleUpdate = jest.fn();
@@ -13,17 +13,17 @@ describe('Given "Item" component', () => {
     const mockContext = {
         handleUpdate,
         handleDelete,
-    } as unknown as NoteContextStructure;
+    } as unknown as PlaceContextStructure;
 
-    const mockTitle = 'Test note';
-    const mockAuthor = 'Test author';
-    const mockNote = new Note(mockTitle, mockAuthor);
+    const mockName = 'Test place';
+    const mockCountry = 'Test country';
+    const mockPlace = new Place(mockName, mockCountry);
     describe('When data are provided in the component', () => {
         test('Then user could interact with them', async () => {
             render(
-                <NoteContext.Provider value={mockContext}>
-                    <Item item={mockNote}></Item>
-                </NoteContext.Provider>
+                <PlaceContext.Provider value={mockContext}>
+                    <Item item={mockPlace}></Item>
+                </PlaceContext.Provider>
             );
 
             const elements = [
@@ -31,8 +31,8 @@ describe('Given "Item" component', () => {
                 ...screen.getAllByRole('status'), // 2 * <output>
                 screen.getByRole('button'),
             ];
-            expect(elements[1]).toHaveValue(mockTitle);
-            expect(elements[2]).toHaveValue(mockAuthor);
+            expect(elements[1]).toHaveValue(mockName);
+            expect(elements[2]).toHaveValue(mockCountry);
             userEvent.click(elements[0]);
             expect(handleUpdate).toHaveBeenCalledTimes(1);
             userEvent.click(elements[3]);

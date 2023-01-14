@@ -1,16 +1,15 @@
 import { SyntheticEvent, useContext, useState } from 'react';
-import { NoteContext } from '../../../../core/context/notes/note.context';
-
-import { NoteLite, NoteNoId } from '../../models/note';
+import { PlaceContext } from '../../../../core/context/places/places.context';
+import { PlaceLite, PlaceNoId } from '../../models/place';
 import './add.css';
 
 export function Add() {
-    const initialFormData: Partial<NoteNoId> = {
-        title: '',
-        author: '',
+    const initialFormData: Partial<PlaceNoId> = {
+        name: '',
+        country: '',
     };
 
-    const { handleAdd } = useContext(NoteContext);
+    const { handleAdd } = useContext(PlaceContext);
 
     const [formData, setFormData] = useState(initialFormData);
 
@@ -22,9 +21,9 @@ export function Add() {
     const handleSubmit = (ev: SyntheticEvent) => {
         ev.preventDefault();
         handleAdd(
-            new NoteLite(
-                formData.title as string,
-                formData.author ? formData.author : ''
+            new PlaceLite(
+                formData.name as string,
+                formData.country ? formData.country : ''
             )
         );
         setFormData(initialFormData);
@@ -32,29 +31,29 @@ export function Add() {
 
     return (
         <section>
-            <h3>Añadir nota</h3>
-            <form className="add-note" onSubmit={handleSubmit}>
+            <h3>Añadir lugar</h3>
+            <form className="add-place" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="title">Nota</label>
+                    <label htmlFor="name">Lugar</label>
                     <input
                         type="text"
-                        name="title"
-                        id="title"
-                        placeholder="Describe la nota"
-                        value={formData.title}
+                        name="name"
+                        id="name"
+                        placeholder="Nombre del lugar"
+                        value={formData.name}
                         onInput={handleInput}
                         required
                     />
                 </div>
                 <div>
-                    <label htmlFor="author">Autor</label>
+                    <label htmlFor="country">Autor</label>
                     <input
                         type="text"
-                        name="author"
-                        id="author"
-                        value={formData.author}
+                        name="country"
+                        id="country"
+                        value={formData.country}
                         onInput={handleInput}
-                        placeholder="Autor de la nota"
+                        placeholder="País en el que está el lugar"
                     />
                 </div>
                 <div>

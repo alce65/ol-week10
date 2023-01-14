@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
-import { NoteContext } from '../../../../core/context/notes/note.context';
+import { PlaceContext } from '../../../../core/context/places/places.context';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
 import './list.css';
 
 export function List() {
-    const { notes, handleLoad } = useContext(NoteContext);
+    const { places, handleLoad } = useContext(PlaceContext);
 
     useEffect(() => {
         handleLoad();
@@ -14,12 +14,12 @@ export function List() {
     return (
         <>
             <Add></Add>
-            <h3>Lista de notas</h3>
-            {!notes.length ? (
+            <h3>Lista de lugares</h3>
+            {!places.length ? (
                 <p>Loading ....</p>
             ) : (
-                <ul className="note-list">
-                    {notes.map((item) => {
+                <ul className="place-list">
+                    {places.map((item) => {
                         return (
                             <li key={item.id}>
                                 <Item item={item}></Item>

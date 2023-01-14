@@ -7,6 +7,7 @@ export function App() {
         { path: '/home', label: 'Inicio' },
         { path: '/todo', label: 'Tareas' },
         { path: '/notes', label: 'Notas' },
+        { path: '/places', label: 'Lugares' },
         { path: '/users', label: 'Login' },
         { path: '/about', label: 'Nosotros' },
     ];

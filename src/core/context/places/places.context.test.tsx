@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
-import { NoteStructure } from '../../features/notes/models/note';
+import { PlaceStructure } from '../../../features/places/models/place';
 
 // Se importa directamente el initialContext
 // para que el test utilice las funciones definidas en él
-import { initialContext, NoteContext } from './note.context';
+import { initialContext, PlaceContext } from './places.context';
 
-const mockNote: NoteStructure = {
+const mockPlace: PlaceStructure = {
     id: '1',
-    title: 'Test task',
-    author: 'Pepe',
-    isImportant: true,
+    name: 'Test place',
+    country: 'country',
+    isVisited: true,
 };
 
-initialContext.notes = [mockNote];
+initialContext.places = [mockPlace];
 
 describe('Given the context AppContext', () => {
     let TestComponent: () => JSX.Element;
@@ -21,26 +21,26 @@ describe('Given the context AppContext', () => {
         beforeEach(() => {
             TestComponent = () => {
                 const {
-                    notes,
+                    places,
                     handleLoad,
                     handleDelete,
                     handleAdd,
                     handleUpdate,
-                } = useContext(NoteContext);
+                } = useContext(PlaceContext);
                 handleLoad();
-                handleAdd(mockNote);
-                handleDelete(mockNote.id);
-                handleUpdate(mockNote);
-                return <>{notes[0].title}</>;
+                handleAdd(mockPlace);
+                handleDelete(mockPlace.id);
+                handleUpdate(mockPlace);
+                return <>{places[0].name}</>;
             };
         });
         test('Context values should be used in the component', () => {
             render(
-                <NoteContext.Provider value={initialContext}>
+                <PlaceContext.Provider value={initialContext}>
                     <TestComponent></TestComponent>
-                </NoteContext.Provider>
+                </PlaceContext.Provider>
             );
-            const element = screen.getByText(initialContext.notes[0].title);
+            const element = screen.getByText(initialContext.places[0].name);
             expect(element).toBeInTheDocument();
         });
     });

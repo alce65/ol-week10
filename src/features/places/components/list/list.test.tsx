@@ -2,37 +2,37 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { List } from './list';
 
-import { Note } from '../../models/note';
+import { Place } from '../../models/place';
 import {
-    NoteContext,
-    NoteContextStructure,
-} from '../../../../core/context/notes/note.context';
+    PlaceContext,
+    PlaceContextStructure,
+} from '../../../../core/context/places/places.context';
 
-const mockNotes = [new Note('Test note', 'user')];
+const mockPlaces = [new Place('Test place', 'user')];
 
 describe('Given "List" component', () => {
     const handleLoad = jest.fn();
-    let mockContext: NoteContextStructure;
+    let mockContext: PlaceContextStructure;
 
     describe('When it is initially instantiated without data', () => {
         beforeEach(async () => {
             mockContext = {
-                notes: [],
+                places: [],
                 handleLoad,
-            } as unknown as NoteContextStructure;
+            } as unknown as PlaceContextStructure;
             await act(async () => {
                 render(
-                    <NoteContext.Provider value={mockContext}>
+                    <PlaceContext.Provider value={mockContext}>
                         <List></List>
-                    </NoteContext.Provider>
+                    </PlaceContext.Provider>
                 );
             });
         });
         test(`Then component should be render the loading`, () => {
             const elementTitle = screen.getByRole('heading', {
-                name: 'Lista de notas',
+                name: 'Lista de lugares',
             }); // <h3>
-            const addLabel = /Añadir nota/i;
+            const addLabel = /Añadir lugar/i;
             const loadingLabel = /Loading/i;
             const elementAdd = screen.getByText(addLabel);
             const elementLoading = screen.getByText(loadingLabel);
@@ -42,17 +42,17 @@ describe('Given "List" component', () => {
         });
     });
 
-    describe('When it load the data from getNote', () => {
+    describe('When it load the data from getPlace', () => {
         beforeEach(async () => {
             mockContext = {
-                notes: mockNotes,
+                places: mockPlaces,
                 handleLoad,
-            } as unknown as NoteContextStructure;
+            } as unknown as PlaceContextStructure;
             await act(async () => {
                 render(
-                    <NoteContext.Provider value={mockContext}>
+                    <PlaceContext.Provider value={mockContext}>
                         <List></List>
-                    </NoteContext.Provider>
+                    </PlaceContext.Provider>
                 );
             });
         });
@@ -62,7 +62,7 @@ describe('Given "List" component', () => {
             await waitFor(() => {
                 expect(handleLoad).toHaveBeenCalled();
             });
-            const elementItem = await screen.findByText(/Test note/i);
+            const elementItem = await screen.findByText(/Test place/i);
             expect(elementItem).toBeInTheDocument();
         });
     });

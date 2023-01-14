@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { NoteContextProvider } from './note.provider';
-import * as useNotes from '../../features/notes/hooks/use.notes';
+import * as useNotes from '../../../features/notes/hooks/use.notes';
 
 describe('Given NoteContextProvider', () => {
     describe('When we use it', () => {

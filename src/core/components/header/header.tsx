@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { NoteContext } from '../../context/note.context';
+import { NoteContext } from '../../context/notes/note.context';
 import './header.css';
 
 export function Header({ children }: { children: JSX.Element }) {

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useNotes } from '../../features/notes/hooks/use.notes';
+import { useNotes } from '../../../features/notes/hooks/use.notes';
 import { NoteContext } from './note.context';
 
 export function NoteContextProvider({ children }: { children: JSX.Element }) {

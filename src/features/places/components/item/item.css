@@ -1,0 +1,27 @@
+.item-place {
+    padding: 0;
+    margin: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid var(--light-gray);
+}
+.item-place__start,
+.item-place__end {
+    flex: 1 0 auto;
+}
+
+.item-place__end {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item-place__middle {
+    flex: 5 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-place .button {
+    cursor: pointer;
+}
