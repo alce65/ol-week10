@@ -4,7 +4,7 @@ import { Add } from './add';
 import {
     NoteContext,
     NoteContextStructure,
-} from '../../../../core/context/note.context';
+} from '../../../../core/context/notes/note.context';
 
 describe('Given "Add" component in "Notes" feature', () => {
     const handleAdd = jest.fn();

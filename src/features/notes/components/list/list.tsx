@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { NoteContext } from '../../../../core/context/note.context';
+import { NoteContext } from '../../../../core/context/notes/note.context';
 import { Add } from '../add/add';
 import { Item } from '../item/item';
 import './list.css';

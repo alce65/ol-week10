@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
-import { NoteStructure } from '../../features/notes/models/note';
+import { NoteStructure } from '../../../features/notes/models/note';
 
 // Se importa directamente el initialContext
 // para que el test utilice las funciones definidas en él

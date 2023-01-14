@@ -5,7 +5,7 @@ import { Note } from '../../models/note';
 import {
     NoteContext,
     NoteContextStructure,
-} from '../../../../core/context/note.context';
+} from '../../../../core/context/notes/note.context';
 
 describe('Given "Item" component', () => {
     const handleUpdate = jest.fn();

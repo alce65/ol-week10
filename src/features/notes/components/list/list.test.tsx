@@ -6,7 +6,7 @@ import { Note } from '../../models/note';
 import {
     NoteContext,
     NoteContextStructure,
-} from '../../../../core/context/note.context';
+} from '../../../../core/context/notes/note.context';
 
 const mockNotes = [new Note('Test note', 'user')];
 
