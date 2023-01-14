@@ -5,6 +5,7 @@ import { App } from './core/components/app/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NoteContextProvider } from './core/context/notes/note.provider';
+import { PlaceContextProvider } from './core/context/places/places.provider';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <NoteContextProvider>
-            <Router>
-                <App />
-            </Router>
+            <PlaceContextProvider>
+                <Router>
+                    <App />
+                </Router>
+            </PlaceContextProvider>
         </NoteContextProvider>
     </React.StrictMode>
 );
