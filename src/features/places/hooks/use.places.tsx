@@ -1,7 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useReducer, useState } from 'react';
 import { consoleDebug } from '../../../tools/debug';
 import { PlaceNoId, PlaceStructure } from '../models/place';
 import { PlacesRepo } from '../services/repository/places.repo';
+import { placeReducer } from '../reducers/place.reducer';
+import * as ac from '../reducers/action.creators';
 
 export type UsePlaces = {
     getStatus: () => Status;
@@ -20,7 +22,9 @@ export function usePlaces(): UsePlaces {
 
     const initialState: Array<PlaceStructure> = [];
     const initialStatus = 'Starting' as Status;
-    const [places, setPlaces] = useState(initialState);
+
+    const [places, dispatch] = useReducer(placeReducer, initialState);
+
     const [status, setStatus] = useState(initialStatus);
 
     const getPlaces = () => places;
@@ -30,7 +34,7 @@ export function usePlaces(): UsePlaces {
         try {
             setStatus('Loading');
             const data = await repo.load();
-            setPlaces(data);
+            dispatch(ac.placeLoadCreator(data));
             setStatus('Loaded');
             consoleDebug('LOAD Places');
         } catch (error) {
@@ -41,7 +45,7 @@ export function usePlaces(): UsePlaces {
     const handleAdd = async function (place: PlaceNoId) {
         try {
             const fullPlace = await repo.create(place);
-            setPlaces((prev) => [...prev, fullPlace]);
+            dispatch(ac.placeAddCreator(fullPlace));
         } catch (error) {
             handleError(error as Error);
         }
@@ -52,11 +56,7 @@ export function usePlaces(): UsePlaces {
     ) {
         try {
             const fullPlace = await repo.update(placePayload);
-            setPlaces((prev) =>
-                prev.map((item) =>
-                    item.id === fullPlace.id ? fullPlace : item
-                )
-            );
+            dispatch(ac.placeUpdateCreator(fullPlace));
         } catch (error) {
             handleError(error as Error);
         }
@@ -65,7 +65,7 @@ export function usePlaces(): UsePlaces {
     const handleDelete = async function (id: PlaceStructure['id']) {
         try {
             const finalId = await repo.delete(id);
-            setPlaces((prev) => prev.filter((item) => item.id !== finalId));
+            dispatch(ac.placeDeleteCreator(finalId));
         } catch (error) {
             handleError(error as Error);
         }
