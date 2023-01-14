@@ -1,11 +1,16 @@
 // Se puede usar type, interface o class
 
-export type PlaceStructure = {
+export type hasID = {
     id: string;
+};
+
+export type PlaceNoId = {
     name: string;
     country: string;
     isVisited: boolean;
 };
+
+export type PlaceStructure = hasID & PlaceNoId;
 
 export class Place implements PlaceStructure {
     static generateId() {
