@@ -1,9 +1,9 @@
-form.add-note label {
+form.add-place label {
     display: block;
     padding-block-end: 0.5rem;
 }
 
-form.add-note input {
+form.add-place input {
     border: none;
     border-block-end: 2px solid var(--light-gray);
     width: 100%;
