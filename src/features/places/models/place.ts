@@ -25,3 +25,10 @@ export class Place implements PlaceStructure {
         this.isVisited = false;
     }
 }
+
+export class PlaceLite implements PlaceNoId {
+    isVisited: boolean;
+    constructor(public name: string, public country: string) {
+        this.isVisited = false;
+    }
+}
