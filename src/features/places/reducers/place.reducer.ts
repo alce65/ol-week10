@@ -12,7 +12,6 @@ import { placeActionTypes } from './action.types';
     - devuelve un nuevo estado -> NO HAY MUTACIÓN
     
 */
-// const initialState: Array<PlaceStructure> = [];
 
 export function placeReducer(
     state: Array<PlaceStructure>,
@@ -20,15 +19,14 @@ export function placeReducer(
 ): Array<PlaceStructure> {
     switch (action.type) {
         case placeActionTypes.load:
-            return action.payload as Array<PlaceStructure>;
+            const loadedPlaces = action.payload as Array<PlaceStructure>;
+            return loadedPlaces;
         case placeActionTypes.add:
-            return [
-                ...(state as Array<PlaceStructure>),
-                action.payload as PlaceStructure,
-            ];
+            const addedPlace = action.payload as PlaceStructure;
+            return [...state, addedPlace];
         case placeActionTypes.update:
             const updatePlace = action.payload as PlaceStructure;
-            return (state as Array<PlaceStructure>).map((item) =>
+            return state.map((item) =>
                 item.id === updatePlace.id ? updatePlace : item
             );
         case placeActionTypes.delete:

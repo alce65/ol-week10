@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-// import { usePlaces } from '../../features/places/hooks/use.places';
 import { PlaceContext } from './places.context';
 import { usePlaces } from '../../../features/places/hooks/use.places';
 
