@@ -32,8 +32,8 @@ describe('Given "Add" component in "Places" feature', () => {
     });
 
     describe('When data are provided in the form', () => {
-        const mockAuthor = 'Test author';
-        const mockTitle = 'Test task';
+        const mockName = 'Test place';
+        const mockCountry = 'Test author';
         let inputElements: Array<HTMLElement>;
         let elementButton: HTMLElement;
         beforeEach(() => {
@@ -43,19 +43,19 @@ describe('Given "Add" component in "Places" feature', () => {
         test('Then form could be used for type content', () => {
             expect(inputElements[0]).toBeInTheDocument();
             expect(inputElements[1]).toBeInTheDocument();
-            userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockAuthor);
-            expect(inputElements[0]).toHaveValue(mockTitle);
-            expect(inputElements[1]).toHaveValue(mockAuthor);
+            userEvent.type(inputElements[0], mockName);
+            userEvent.type(inputElements[1], mockCountry);
+            expect(inputElements[0]).toHaveValue(mockName);
+            expect(inputElements[1]).toHaveValue(mockCountry);
         });
         test('Then form could be used for send the function received in props', () => {
-            userEvent.type(inputElements[0], mockTitle);
-            userEvent.type(inputElements[1], mockAuthor);
+            userEvent.type(inputElements[0], mockName);
+            userEvent.type(inputElements[1], mockCountry);
             userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });
         test('Then form could be used also without value for responsible', () => {
-            userEvent.type(inputElements[0], mockTitle);
+            userEvent.type(inputElements[0], mockName);
             userEvent.click(elementButton);
             expect(handleAdd).toHaveBeenCalled();
         });

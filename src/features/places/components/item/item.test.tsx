@@ -15,9 +15,9 @@ describe('Given "Item" component', () => {
         handleDelete,
     } as unknown as PlaceContextStructure;
 
-    const mockTitle = 'Test place';
-    const mockAuthor = 'Test country';
-    const mockPlace = new Place(mockTitle, mockAuthor);
+    const mockName = 'Test place';
+    const mockCountry = 'Test country';
+    const mockPlace = new Place(mockName, mockCountry);
     describe('When data are provided in the component', () => {
         test('Then user could interact with them', async () => {
             render(
@@ -31,8 +31,8 @@ describe('Given "Item" component', () => {
                 ...screen.getAllByRole('status'), // 2 * <output>
                 screen.getByRole('button'),
             ];
-            expect(elements[1]).toHaveValue(mockTitle);
-            expect(elements[2]).toHaveValue(mockAuthor);
+            expect(elements[1]).toHaveValue(mockName);
+            expect(elements[2]).toHaveValue(mockCountry);
             userEvent.click(elements[0]);
             expect(handleUpdate).toHaveBeenCalledTimes(1);
             userEvent.click(elements[3]);
